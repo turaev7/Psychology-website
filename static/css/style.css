@@ -435,3 +435,43 @@ body {
 .btn-success:hover {
     background-color: #6fa488;
 }
+
+p, .lead, h1, h2, h3, h4, h5, h6, span, li, label {
+    color: var(--text-dark);
+}
+
+.text-muted {
+    color: var(--text-dark) !important;
+    opacity: 0.8;
+}
+
+a {
+    color: var(--primary-color);
+}
+
+a:hover {
+    color: var(--secondary-color);
+}
+
+.hero-subtitle {
+    color: var(--text-dark);
+}
+
+.about-image-container p {
+    color: var(--text-dark);
+}
+
+.media-card p {
+    color: var(--text-dark);
+}
+
+.login-card label,
+.login-card input,
+.login-card p {
+    color: var(--text-dark);
+}
+
+small {
+    color: var(--text-dark);
+    opacity: 0.9;
+}
