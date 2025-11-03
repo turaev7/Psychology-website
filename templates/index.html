@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center text-md-start mb-4 mb-md-0">
+                <h1 class="display-4 mb-3 hero-title"><span class="hero-text">welcome</span></h1>
+                <p class="lead mb-4 hero-subtitle"><span class="hero-text">tagline</span></p>
+                <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-md-start">
+                    <a href="{{ url_for('appointment', lang=lang) }}" class="btn btn-primary btn-lg px-5">
+                        <i class="fas fa-calendar-check me-2"></i><span class="btn-text">book_appointment</span>
+                    </a>
+                    <a href="{{ url_for('about', lang=lang) }}" class="btn btn-outline-primary btn-lg px-5">
+                        <i class="fas fa-user me-2"></i><span class="btn-text">learn_more</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6 text-center">
+                <div class="hero-image-container">
+                    <img src="{{ url_for('static', filename='images/dr-guli.png') }}" alt="Dr. Guli Bekmurodovna" class="hero-image">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="features-section py-5">
+    <div class="container">
+        <h2 class="text-center mb-5"><span class="section-text">specializations</span></h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card text-center p-4">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h4><span class="feature-text">body_therapy</span></h4>
+                    <p><span class="feature-text">body_therapy_desc</span></p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card text-center p-4">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h4><span class="feature-text">personal_growth</span></h4>
+                    <p><span class="feature-text">personal_growth_desc</span></p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card text-center p-4">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-hands-holding-heart"></i>
+                    </div>
+                    <h4><span class="feature-text">relationships</span></h4>
+                    <p><span class="feature-text">relationships_desc</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section py-5">
+    <div class="container text-center">
+        <h2 class="mb-3"><span class="cta-text">ready_to_start</span></h2>
+        <p class="lead mb-4"><span class="cta-text">first_step</span></p>
+        <a href="{{ url_for('appointment', lang=lang) }}" class="btn btn-light btn-lg px-5">
+            <i class="fas fa-calendar-plus me-2"></i><span class="btn-text">schedule_now</span>
+        </a>
+    </div>
+</section>
+{% endblock %}

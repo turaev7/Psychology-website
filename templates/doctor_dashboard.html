@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}Doctor Dashboard - Dr. Guli Bekmurodovna{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1 class="display-5"><span class="page-title">doctor_dashboard</span></h1>
+    </div>
+</div>
+
+<section class="py-5">
+    <div class="container">
+        <ul class="nav nav-tabs mb-4" id="dashboardTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="appointments-tab" data-bs-toggle="tab" data-bs-target="#appointments" type="button">
+                    <i class="fas fa-calendar-alt me-2"></i><span class="tab-text">appointments</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="patients-tab" data-bs-toggle="tab" data-bs-target="#patients" type="button">
+                    <i class="fas fa-users me-2"></i><span class="tab-text">registered_patients</span>
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="dashboardTabContent">
+            <div class="tab-pane fade show active" id="appointments" role="tabpanel">
+                <h3 class="mb-4"><span class="dashboard-text">all_appointments</span></h3>
+                
+                {% if appointments %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th><span class="table-text">date</span></th>
+                                    <th><span class="table-text">time</span></th>
+                                    <th><span class="table-text">patient_name</span></th>
+                                    <th><span class="table-text">contact</span></th>
+                                    <th><span class="table-text">status</span></th>
+                                    <th><span class="table-text">session_notes</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for appointment in appointments %}
+                                <tr>
+                                    <td>{{ appointment['appointment_date'] }}</td>
+                                    <td>{{ appointment['appointment_time'] }}</td>
+                                    <td>
+                                        {{ appointment['patient_name'] }}
+                                        {% if appointment['patient_registered_name'] %}
+                                            <span class="badge bg-success ms-2"><i class="fas fa-check"></i> <span class="badge-text">registered</span></span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <small>{{ appointment['patient_email'] }}</small><br>
+                                        <small>{{ appointment['patient_phone'] }}</small>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-{{ 'success' if appointment['status'] == 'scheduled' else 'secondary' }}">
+                                            {{ appointment['status'] }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {% if appointment['patient_id'] %}
+                                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#notesModal{{ appointment['id'] }}">
+                                                {% if appointment['notes'] %}
+                                                    <i class="fas fa-edit"></i> <span class="btn-text">edit_notes</span>
+                                                {% else %}
+                                                    <i class="fas fa-plus"></i> <span class="btn-text">add_notes</span>
+                                                {% endif %}
+                                            </button>
+                                            
+                                            <div class="modal fade" id="notesModal{{ appointment['id'] }}" tabindex="-1">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title"><span class="modal-text">session_notes_for</span> {{ appointment['patient_name'] }}</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                        </div>
+                                                        <form method="POST" action="{{ url_for('add_note', appointment_id=appointment['id']) }}">
+                                                            <div class="modal-body">
+                                                                <textarea class="form-control" name="notes" rows="5" required>{{ appointment['notes'] or '' }}</textarea>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><span class="btn-text">close</span></button>
+                                                                <button type="submit" class="btn btn-primary"><span class="btn-text">save</span></button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            <small class="text-muted"><span class="table-text">not_registered</span></small>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <span class="dashboard-text">no_appointments_yet</span>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="tab-pane fade" id="patients" role="tabpanel">
+                <h3 class="mb-4"><span class="dashboard-text">registered_patients</span></h3>
+                
+                {% if patients %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th><span class="table-text">name</span></th>
+                                    <th><span class="table-text">email</span></th>
+                                    <th><span class="table-text">phone</span></th>
+                                    <th><span class="table-text">registered_on</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for patient in patients %}
+                                <tr>
+                                    <td>{{ patient['name'] }}</td>
+                                    <td>{{ patient['email'] }}</td>
+                                    <td>{{ patient['phone'] or 'N/A' }}</td>
+                                    <td>{{ patient['created_at'] }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <span class="dashboard-text">no_patients_yet</span>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
