@@ -44,113 +44,24 @@ document.addEventListener('DOMContentLoaded', function() {
 function translatePage(lang) {
     const t = translations[lang] || translations['en'];
     
-    document.querySelectorAll('.nav-text').forEach(el => {
-        const key = el.textContent.trim();
-        if (t[key]) el.textContent = t[key];
-    });
+    const selectors = [
+        '.nav-text', '.hero-text', '.btn-text', '.section-text', '.feature-text',
+        '.cta-text', '.page-title', '.about-text', '.contact-text', '.appointment-text',
+        '.form-text', '.alert-text', '.login-text', '.info-text', '.dashboard-text',
+        '.notes-text', '.tab-text', '.table-text', '.badge-text', '.modal-text',
+        '.media-text', '.footer-text'
+    ];
     
-    document.querySelectorAll('.hero-text').forEach(el => {
-        const key = el.textContent.trim();
-        if (t[key]) el.textContent = t[key];
-    });
-    
-    document.querySelectorAll('.btn-text').forEach(el => {
-        const key = el.textContent.trim();
-        if (t[key]) el.textContent = t[key];
-    });
-    
-    document.querySelectorAll('.section-text').forEach(el => {
-        const key = el.textContent.trim();
-        if (t[key]) el.textContent = t[key];
-    });
-    
-    document.querySelectorAll('.feature-text').forEach(el => {
-        const key = el.textContent.trim();
-        if (t[key]) el.textContent = t[key];
-    });
-    
-    document.querySelectorAll('.cta-text').forEach(el => {
-        const key = el.textContent.trim();
-        if (t[key]) el.textContent = t[key];
-    });
-    
-    document.querySelectorAll('.page-title').forEach(el => {
-        const key = el.textContent.trim();
-        if (t[key]) el.textContent = t[key];
-    });
-    
-    document.querySelectorAll('.about-text').forEach(el => {
-        const key = el.textContent.trim();
-        if (t[key]) el.textContent = t[key];
-    });
-    
-    document.querySelectorAll('.contact-text').forEach(el => {
-        const key = el.textContent.trim();
-        if (t[key]) el.textContent = t[key];
-    });
-    
-    document.querySelectorAll('.appointment-text').forEach(el => {
-        const key = el.textContent.trim();
-        if (t[key]) el.textContent = t[key];
-    });
-    
-    document.querySelectorAll('.form-text').forEach(el => {
-        const key = el.textContent.trim();
-        if (t[key]) el.textContent = t[key];
-    });
-    
-    document.querySelectorAll('.alert-text').forEach(el => {
-        const key = el.textContent.trim();
-        if (t[key]) el.textContent = t[key];
-    });
-    
-    document.querySelectorAll('.login-text').forEach(el => {
-        const key = el.textContent.trim();
-        if (t[key]) el.textContent = t[key];
-    });
-    
-    document.querySelectorAll('.info-text').forEach(el => {
-        const key = el.textContent.trim();
-        if (t[key]) el.textContent = t[key];
-    });
-    
-    document.querySelectorAll('.dashboard-text').forEach(el => {
-        const key = el.textContent.trim();
-        if (t[key]) el.textContent = t[key];
-    });
-    
-    document.querySelectorAll('.notes-text').forEach(el => {
-        const key = el.textContent.trim();
-        if (t[key]) el.textContent = t[key];
-    });
-    
-    document.querySelectorAll('.tab-text').forEach(el => {
-        const key = el.textContent.trim();
-        if (t[key]) el.textContent = t[key];
-    });
-    
-    document.querySelectorAll('.table-text').forEach(el => {
-        const key = el.textContent.trim();
-        if (t[key]) el.textContent = t[key];
-    });
-    
-    document.querySelectorAll('.badge-text').forEach(el => {
-        const key = el.textContent.trim();
-        if (t[key]) el.textContent = t[key];
-    });
-    
-    document.querySelectorAll('.modal-text').forEach(el => {
-        const key = el.textContent.trim();
-        if (t[key]) el.textContent = t[key];
-    });
-    
-    document.querySelectorAll('.media-text').forEach(el => {
-        const key = el.textContent.trim();
-        if (t[key]) el.textContent = t[key];
-    });
-    
-    document.querySelectorAll('.footer-text').forEach(el => {
-        const key = el.textContent.trim();
-        if (t[key]) el.textContent = t[key];
+    selectors.forEach(selector => {
+        document.querySelectorAll(selector).forEach(el => {
+            if (!el.dataset.i18n) {
+                el.dataset.i18n = el.textContent.trim();
+            }
+            
+            const key = el.dataset.i18n;
+            if (t[key]) {
+                el.textContent = t[key];
+            }
+        });
     });
 }
