@@ -1,477 +1,1117 @@
+/* ============================
+   BASE THEME
+   ============================ */
+
 :root {
-    --primary-color: #4A90A4;
-    --secondary-color: #87BBA2;
-    --accent-color: #C7956D;
-    --text-dark: #2C3E50;
-    --text-light: #E8F4F8;
-    --bg-light: #F8FAFB;
-    --bg-card: #FFFFFF;
-    --border-color: #E0E6EB;
-    --success-color: #87BBA2;
-    --danger-color: #D4756B;
-    --shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
-    --shadow-hover: 0 5px 25px rgba(0, 0, 0, 0.12);
+  --color-bg: #f6f2ec;
+  --color-bg-soft: #fbf8f3;
+  --color-surface: #ffffff;
+  --color-accent: #d0a47b;      /* warm beige */
+  --color-accent-soft: #f2e2cf;
+  --color-deep: #1f3130;        /* deep green/gray */
+  --color-text-main: #27302f;
+  --color-text-muted: #7a837f;
+  --radius-lg: 24px;
+  --radius-md: 18px;
+  --radius-pill: 999px;
+  --shadow-soft: 0 20px 55px rgba(22, 30, 29, 0.25);
+  --shadow-subtle: 0 12px 30px rgba(22, 30, 29, 0.15);
 }
 
-[data-theme="dark"] {
-    --primary-color: #5BA6BE;
-    --secondary-color: #87BBA2;
-    --accent-color: #D4A574;
-    --text-dark: #E8F4F8;
-    --text-light: #2C3E50;
-    --bg-light: #1A1F2E;
-    --bg-card: #252B3B;
-    --border-color: #3A4252;
-    --success-color: #87BBA2;
-    --danger-color: #E08A80;
-    --shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
-    --shadow-hover: 0 5px 25px rgba(0, 0, 0, 0.4);
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* Global background / typography */
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg-light);
-    color: var(--text-dark);
-    transition: background-color 0.3s ease, color 0.3s ease;
-    line-height: 1.6;
-}
-
-.navbar {
-    background-color: var(--bg-card);
-    box-shadow: var(--shadow);
-    padding: 1rem 0;
-    transition: background-color 0.3s ease;
-}
-
-.navbar-brand {
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: var(--primary-color) !important;
-}
-
-.nav-link {
-    color: var(--text-dark) !important;
-    font-weight: 500;
-    padding: 0.5rem 1rem !important;
-    transition: color 0.3s ease;
-}
-
-.nav-link:hover {
-    color: var(--primary-color) !important;
-}
-
-.theme-toggle {
-    background-color: var(--primary-color);
-    border: none;
-    color: white;
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
-
-.theme-toggle:hover {
-    background-color: var(--secondary-color);
-    transform: rotate(20deg);
-}
-
-.lang-selector {
-    background-color: var(--bg-light);
-    border-radius: 20px;
-    padding: 0.4rem 0.8rem !important;
-}
-
-.hero-section {
-    padding: 4rem 0;
-    background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-light) 100%);
-}
-
-.hero-image-container {
-    position: relative;
-    display: inline-block;
-}
-
-.hero-image {
-    width: 100%;
-    max-width: 400px;
-    border-radius: 50%;
-    box-shadow: var(--shadow-hover);
-    border: 8px solid var(--primary-color);
-    transition: transform 0.3s ease;
-}
-
-.hero-image:hover {
-    transform: scale(1.05);
-}
-
-.hero-title {
-    color: var(--primary-color);
-    font-weight: 700;
-}
-
-.hero-subtitle {
-    color: var(--text-dark);
-}
-
-.btn-primary {
-    background-color: var(--primary-color);
-    border: none;
-    padding: 0.75rem 2rem;
-    border-radius: 50px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.btn-primary:hover {
-    background-color: var(--secondary-color);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-hover);
-}
-
-.btn-outline-primary {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-    padding: 0.75rem 2rem;
-    border-radius: 50px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.btn-outline-primary:hover {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    transform: translateY(-2px);
-}
-
-.features-section {
-    background-color: var(--bg-light);
-}
-
-.feature-card {
-    background-color: var(--bg-card);
-    border-radius: 15px;
-    box-shadow: var(--shadow);
-    transition: all 0.3s ease;
-    height: 100%;
-    border: 2px solid transparent;
-}
-
-.feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-hover);
-    border-color: var(--secondary-color);
-}
-
-.feature-icon {
-    color: var(--primary-color);
-    font-size: 3rem;
-}
-
-.cta-section {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    color: white;
-    border-radius: 20px;
-    margin: 0 1rem;
-}
-
-.page-header {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    color: white;
-    padding: 3rem 0;
-    margin-bottom: 2rem;
-}
-
-.about-image-container {
-    position: relative;
-}
-
-.about-image {
-    width: 100%;
-    max-width: 300px;
-    border-radius: 50%;
-    box-shadow: var(--shadow-hover);
-    border: 6px solid var(--secondary-color);
-}
-
-.about-content {
-    background-color: var(--bg-card);
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: var(--shadow);
-}
-
-.expertise-list {
-    list-style: none;
-    padding-left: 0;
-}
-
-.expertise-list li {
-    padding: 0.5rem 0;
-    color: var(--text-dark);
-}
-
-.expertise-list i {
-    color: var(--success-color);
-}
-
-.contact-card {
-    background-color: var(--bg-card);
-    border-radius: 15px;
-    box-shadow: var(--shadow);
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-}
-
-.contact-card:hover {
-    border-color: var(--primary-color);
-    transform: translateY(-3px);
-}
-
-.contact-card a {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.appointment-card,
-.login-card {
-    background-color: var(--bg-card);
-    border-radius: 15px;
-    box-shadow: var(--shadow);
-}
-
-.form-control,
-.form-select {
-    background-color: var(--bg-light);
-    border: 1px solid var(--border-color);
-    color: var(--text-dark);
-    border-radius: 10px;
-    padding: 0.75rem;
-    transition: all 0.3s ease;
-}
-
-.form-control:focus,
-.form-select:focus {
-    background-color: var(--bg-card);
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 0.2rem rgba(74, 144, 164, 0.25);
-    color: var(--text-dark);
-}
-
-.form-label {
-    color: var(--text-dark);
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-}
-
-.alert {
-    border-radius: 10px;
-    border: none;
-}
-
-.alert-info {
-    background-color: rgba(74, 144, 164, 0.1);
-    color: var(--text-dark);
-}
-
-.media-card {
-    background-color: var(--bg-card);
-    border-radius: 15px;
-    box-shadow: var(--shadow);
-    transition: all 0.3s ease;
-    height: 100%;
-    border: 2px solid transparent;
-}
-
-.media-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-hover);
-    border-color: var(--accent-color);
-}
-
-.media-icon {
-    color: var(--primary-color);
-}
-
-.table {
-    background-color: var(--bg-card);
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.table thead {
-    background-color: var(--primary-color);
-    color: white;
-}
-
-.table tbody tr {
-    border-bottom: 1px solid var(--border-color);
-}
-
-.table tbody tr:hover {
-    background-color: var(--bg-light);
-}
-
-.modal-content {
-    background-color: var(--bg-card);
-    color: var(--text-dark);
-    border: none;
-    border-radius: 15px;
-}
-
-.modal-header {
-    border-bottom: 1px solid var(--border-color);
-}
-
-.modal-footer {
-    border-top: 1px solid var(--border-color);
-}
-
-.badge {
-    padding: 0.4rem 0.8rem;
-    border-radius: 20px;
-}
-
-.footer {
-    background-color: var(--bg-card);
-    color: var(--text-dark);
-    padding: 3rem 0 1rem;
-    margin-top: 4rem;
-    box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.08);
-}
-
-.footer h5 {
-    color: var(--primary-color);
-    font-weight: 600;
-    margin-bottom: 1rem;
-}
-
-.footer a {
-    color: var(--text-dark);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer a:hover {
-    color: var(--primary-color);
-}
-
-.social-link {
-    display: inline-block;
-    font-size: 1.1rem;
-}
-
-.nav-tabs .nav-link {
-    color: var(--text-dark);
-    border: none;
-    border-bottom: 3px solid transparent;
-}
-
-.nav-tabs .nav-link.active {
-    color: var(--primary-color);
-    background-color: transparent;
-    border-bottom-color: var(--primary-color);
-}
-
-.session-notes {
-    background-color: var(--bg-light);
-    padding: 1rem;
-    border-radius: 10px;
-    border-left: 4px solid var(--success-color);
-}
-
-@media (max-width: 768px) {
-    .hero-section {
-        padding: 2rem 0;
-    }
-    
-    .hero-image {
-        max-width: 250px;
-    }
-    
-    .display-4,
-    .display-5 {
-        font-size: 2rem;
-    }
-    
-    .navbar-brand {
-        font-size: 1.1rem;
-    }
-    
-    .brand-text {
-        display: none;
-    }
-}
-
-.dropdown-menu {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow);
-}
-
-.dropdown-item {
-    color: var(--text-dark);
-}
-
-.dropdown-item:hover {
-    background-color: var(--bg-light);
-    color: var(--primary-color);
-}
-
-.btn-success {
-    background-color: var(--success-color);
-    border: none;
-}
-
-.btn-success:hover {
-    background-color: #6fa488;
-}
-
-p, .lead, h1, h2, h3, h4, h5, h6, span, li, label {
-    color: var(--text-dark);
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 .text-muted {
-    color: var(--text-dark) !important;
-    opacity: 0.8;
+  color: var(--color-text-muted) !important;
 }
 
-a {
-    color: var(--primary-color);
+.letter-spacing-wide {
+  letter-spacing: 0.14em;
 }
 
-a:hover {
-    color: var(--secondary-color);
+.tiny {
+  font-size: 0.8rem;
 }
 
-.hero-subtitle {
-    color: var(--text-dark);
+/* ============================
+   HERO FULLSCREEN
+   ============================ */
+
+.hero-fullscreen {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  color: var(--color-text-main);
 }
 
-.about-image-container p {
-    color: var(--text-dark);
+/* Background image (psychologist photo as full background) */
+.hero-image-layer {
+  position: absolute;
+  inset: 0;
+  background-image: url("../images/dr-guli.png"); /* adjust if your image name differs */
+  background-size: cover;
+  background-position: center right;
+  filter: brightness(0.7);
+  transform: scale(1.03);
+  transform-origin: center right;
+  transition: transform 1.6s ease-out;
 }
 
-.media-card p {
-    color: var(--text-dark);
+/* Soft color overlay so text is readable */
+.hero-color-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(246, 242, 236, 0.92) 0%,
+    rgba(246, 242, 236, 0.9) 40%,
+    rgba(246, 242, 236, 0.4) 70%,
+    transparent 100%
+  );
 }
 
-.login-card label,
-.login-card input,
-.login-card p {
-    color: var(--text-dark);
+/* keep content above */
+.hero-overlay {
+  position: relative;
+  z-index: 2;
 }
 
-small {
-    color: var(--text-dark);
-    opacity: 0.9;
+.hero-heading {
+  color: var(--color-deep);
+  line-height: 1.1;
+}
+
+.hero-subtitle-text {
+  color: var(--color-text-muted);
+  max-width: 32rem;
+}
+
+.hero-note {
+  max-width: 26rem;
+}
+
+/* Buttons in hero */
+
+.hero-fullscreen .btn-primary {
+  background-color: var(--color-deep);
+  border-color: var(--color-deep);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-subtle);
+}
+
+.hero-fullscreen .btn-primary:hover {
+  background-color: #151f1e;
+  border-color: #151f1e;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-soft);
+}
+
+.hero-fullscreen .btn-outline-light {
+  border-radius: var(--radius-pill);
+  border-width: 1.5px;
+  border-color: rgba(255, 255, 255, 0.8);
+  color: var(--color-deep);
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(4px);
+}
+
+.hero-fullscreen .btn-outline-light:hover {
+  background-color: #ffffff;
+  border-color: #ffffff;
+}
+
+/* Morphing photo frame on right */
+
+.hero-photo-frame {
+  width: 320px;
+  max-width: 100%;
+  aspect-ratio: 4 / 5;
+  background-image: url("../images/dr-guli.png"); /* same image */
+  background-size: cover;
+  background-position: center top;
+  border-radius: 56% 44% 52% 48% / 64% 56% 44% 36%;
+  box-shadow: var(--shadow-soft);
+  border: 1.2px solid rgba(242, 226, 201, 0.9);
+  animation: frameMorph 16s ease-in-out infinite alternate;
+}
+
+/* Morphing animation */
+@keyframes frameMorph {
+  0% {
+    border-radius: 56% 44% 52% 48% / 64% 56% 44% 36%;
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    border-radius: 48% 52% 38% 62% / 58% 52% 48% 42%;
+    transform: translateY(-6px) scale(1.02);
+  }
+  100% {
+    border-radius: 60% 40% 44% 56% / 52% 64% 36% 48%;
+    transform: translateY(4px) scale(1.01);
+  }
+}
+
+/* Scroll indicator */
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 0;
+  right: 0;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.scroll-text {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: rgba(39, 48, 47, 0.8);
+}
+
+.scroll-line {
+  display: inline-block;
+  width: 1px;
+  height: 40px;
+  background: rgba(39, 48, 47, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 16px;
+  background: var(--color-deep);
+  animation: scrollDot 1.4s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+}
+
+@keyframes scrollDot {
+  0% {
+    transform: translateY(-16px);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+}
+
+/* ============================
+   SECTIONS
+   ============================ */
+
+.section-soft {
+  background-color: var(--color-bg-soft);
+}
+
+.section-label {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+/* ============================
+   ABOUT / INFO CARDS
+   ============================ */
+
+.about-card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-subtle);
+  border: 1px solid rgba(205, 186, 157, 0.35);
+}
+
+.about-avatar-wrapper {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--color-accent-soft);
+}
+
+.about-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Mini cards on the right of about section */
+
+.mini-card {
+  background-color: rgba(255, 255, 255, 0.96);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(176, 190, 185, 0.5);
+  box-shadow: 0 12px 30px rgba(25, 32, 31, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.mini-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(25, 32, 31, 0.12);
+  border-color: rgba(144, 167, 159, 0.9);
+}
+
+.mini-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted);
+}
+
+/* ============================
+   SERVICES
+   ============================ */
+
+.service-card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(196, 178, 154, 0.4);
+  box-shadow: 0 16px 38px rgba(25, 32, 31, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-soft);
+  border-color: rgba(186, 160, 125, 0.9);
+  background-color: #fffaf3;
+}
+
+/* ============================
+   QUOTE / MEDIA CARD
+   ============================ */
+
+.quote-card {
+  max-width: 960px;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(186, 160, 125, 0.5);
+}
+
+.quote-label {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.78rem;
+  color: #a0947f;
+}
+
+/* ============================
+   FINAL CTA
+   ============================ */
+
+.final-cta-card {
+  max-width: 720px;
+  background: radial-gradient(circle at top left, #efe1cf 0, transparent 65%),
+              radial-gradient(circle at bottom right, #dde4da 0, transparent 60%),
+              var(--color-surface);
+  border-radius: 32px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(186, 160, 125, 0.5);
+}
+
+.final-cta-card .btn-primary {
+  background-color: var(--color-deep);
+  border-color: var(--color-deep);
+  border-radius: var(--radius-pill);
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+/* ============================
+   BUTTON GENERAL
+   ============================ */
+
+.btn {
+  border-radius: var(--radius-pill);
+  font-weight: 500;
+}
+
+.btn-text {
+  letter-spacing: 0.02em;
+}
+
+/* ============================
+   SCROLL REVEAL ANIMATION
+   ============================ */
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.9s ease-out,
+    transform 0.9s ease-out;
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Slight stagger effect in hero */
+.hero-content.reveal-on-scroll {
+  transition-delay: 0.1s;
+}
+.hero-photo-frame.reveal-on-scroll {
+  transition-delay: 0.25s;
+}
+
+/* ============================
+   RESPONSIVE TWEAKS
+   ============================ */
+
+@media (max-width: 991.98px) {
+  .hero-fullscreen {
+    min-height: 80vh;
+    padding-top: 4.5rem;
+    padding-bottom: 3rem;
+  }
+
+  .hero-image-layer {
+    background-position: center top;
+    filter: brightness(0.65);
+  }
+
+  .hero-color-overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(246, 242, 236, 0.95) 0%,
+      rgba(246, 242, 236, 0.7) 50%,
+      rgba(246, 242, 236, 0.5) 100%
+    );
+  }
+
+  .hero-heading {
+    font-size: 2.1rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .final-cta-card {
+    border-radius: 24px;
+    padding-inline: 1.5rem !important;
+  }
+}
+
+/* ============================
+   PAGE HERO (APPOINTMENT)
+   ============================ */
+
+.page-hero {
+  position: relative;
+  padding: 5rem 0 3.5rem;
+  background-image: url("../images/dr-guli.png"); /* reuse same image */
+  background-size: cover;
+  background-position: center right;
+  overflow: hidden;
+}
+
+.page-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(246, 242, 236, 0.96) 0%,
+    rgba(246, 242, 236, 0.9) 40%,
+    rgba(246, 242, 236, 0.7) 70%,
+    rgba(246, 242, 236, 0.3) 100%
+  );
+}
+
+.page-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.page-hero-content h1 {
+  color: var(--color-deep);
+}
+
+.h1-lg {
+  font-size: 2.2rem;
+}
+
+@media (min-width: 992px) {
+  .h1-lg {
+    font-size: 2.6rem;
+  }
+}
+
+/* ============================
+   BOOKING LAYOUT & CARDS
+   ============================ */
+
+.booking-layout {
+  align-items: stretch;
+}
+
+.booking-card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(196, 178, 154, 0.5);
+  box-shadow: var(--shadow-subtle);
+}
+
+.booking-info-card {
+  background: radial-gradient(circle at top left, #efe1cf 0, transparent 65%),
+              radial-gradient(circle at bottom right, #dde4da 0, transparent 60%),
+              var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(186, 160, 125, 0.5);
+  box-shadow: var(--shadow-soft);
+}
+
+.booking-note {
+  border-top: 1px dashed rgba(186, 160, 125, 0.5);
+}
+
+/* Form fields refinement */
+
+.booking-card .form-control,
+.booking-card .form-select {
+  border-radius: 12px;
+  border-color: rgba(176, 190, 185, 0.7);
+}
+
+.booking-card .form-control:focus,
+.booking-card .form-select:focus {
+  border-color: var(--color-deep);
+  box-shadow: 0 0 0 0.1rem rgba(31, 49, 48, 0.2);
+}
+/* ============================
+   ABOUT PAGE LAYOUT
+   ============================ */
+
+.page-hero--about {
+  background-image: url("../images/dr-guli.png"); /* reuse psychologist image */
+  background-size: cover;
+  background-position: center right;
+}
+
+.about-layout {
+  align-items: stretch;
+}
+
+.about-main-card {
+  background-color: var(--color-surface);
+  border-radius: 28px;
+  border: 1px solid rgba(196, 178, 154, 0.5);
+  box-shadow: var(--shadow-subtle);
+}
+
+.about-avatar-lg {
+  width: 72px;
+  height: 72px;
+}
+
+.about-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.about-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background-color: rgba(196, 178, 154, 0.12);
+  border: 1px solid rgba(196, 178, 154, 0.4);
+  font-size: 0.8rem;
+  color: var(--color-deep);
+}
+
+/* SIDE HIGHLIGHTS */
+
+.about-highlight-card {
+  background: radial-gradient(circle at top left, #efe1cf 0, transparent 65%),
+              radial-gradient(circle at bottom right, #dde4da 0, transparent 60%),
+              var(--color-surface);
+  border-radius: 28px;
+  border: 1px solid rgba(186, 160, 125, 0.6);
+  box-shadow: var(--shadow-soft);
+}
+
+.about-highlight-item {
+  padding-bottom: 0.75rem;
+  border-bottom: 1px dashed rgba(186, 160, 125, 0.4);
+}
+
+.about-highlight-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.about-highlight-label {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted);
+}
+
+.about-highlight-note {
+  border-top: 1px dashed rgba(186, 160, 125, 0.5);
+}
+
+/* APPROACH & FOCUS */
+
+.approach-card,
+.focus-card {
+  background-color: var(--color-surface);
+  border-radius: 24px;
+  border: 1px solid rgba(176, 190, 185, 0.6);
+  box-shadow: 0 16px 40px rgba(25, 32, 31, 0.12);
+}
+
+.approach-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--color-deep);
+}
+
+.focus-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.focus-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.8rem;
+  border-radius: 999px;
+  background-color: rgba(31, 49, 48, 0.04);
+  border: 1px solid rgba(31, 49, 48, 0.22);
+  color: var(--color-deep);
+}
+
+/* TIMELINE */
+
+.timeline {
+  position: relative;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.timeline-line {
+  position: absolute;
+  top: 0.25rem;
+  bottom: 0.25rem;
+  left: 14px;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    rgba(31, 49, 48, 0.6),
+    rgba(31, 49, 48, 0.1)
+  );
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+  padding-left: 2.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: 6px;
+  top: 0.35rem;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--color-deep);
+  border: 2px solid var(--color-bg);
+  box-shadow: 0 0 0 4px rgba(31, 49, 48, 0.18);
+}
+
+.timeline-content {
+  margin-left: 0.5rem;
+}
+
+.timeline-year {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: rgba(31, 49, 48, 0.7);
+}
+
+.timeline-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-deep);
+}
+
+/* RESPONSIVE TWEAKS FOR ABOUT */
+
+@media (max-width: 991.98px) {
+  .about-main-card,
+  .about-highlight-card {
+    border-radius: 22px;
+  }
+
+  .page-hero--about {
+    padding-top: 4.5rem;
+    padding-bottom: 2.5rem;
+  }
+}
+/* ============================
+   MEDIA PAGE
+   ============================ */
+
+.page-hero--media {
+  background-image: url("../images/dr-guli.png"); /* reuse psychologist image or set a custom banner */
+  background-size: cover;
+  background-position: center right;
+}
+
+/* Filters + search */
+
+.media-filters {
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 0.6rem 1rem;
+  box-shadow: 0 14px 35px rgba(25, 32, 31, 0.12);
+  border: 1px solid rgba(196, 178, 154, 0.5);
+}
+
+.media-chip {
+  border: none;
+  outline: none;
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.82rem;
+  background-color: transparent;
+  color: var(--color-text-muted);
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.media-chip.active {
+  background-color: var(--color-deep);
+  color: #ffffff;
+  box-shadow: 0 10px 24px rgba(22, 30, 29, 0.4);
+}
+
+.media-search-wrapper {
+  min-width: 260px;
+}
+
+.media-search-input {
+  border-radius: 999px;
+  background-color: rgba(246, 242, 236, 0.9);
+  border: 1px solid rgba(196, 178, 154, 0.4);
+  overflow: hidden;
+}
+
+.media-search-input .input-group-text {
+  background: transparent;
+  color: var(--color-text-muted);
+}
+
+.media-search-input .form-control {
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Media cards */
+
+.media-card {
+  background-color: var(--color-surface);
+  border-radius: 24px;
+  border: 1px solid rgba(196, 178, 154, 0.6);
+  box-shadow: 0 18px 45px rgba(25, 32, 31, 0.18);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.media-thumb {
+  position: relative;
+  padding-top: 58%;
+  overflow: hidden;
+}
+
+.media-thumb-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Different backgrounds for audio / video / article */
+
+.media-thumb--audio {
+  background: radial-gradient(circle at top left, #efe1cf 0, transparent 60%),
+              radial-gradient(circle at bottom right, #dde4da 0, transparent 60%),
+              #232b2a;
+}
+
+.media-thumb--video {
+  background: radial-gradient(circle at top, #ffe1cf 0, transparent 55%),
+              radial-gradient(circle at bottom, #d2e2ff 0, transparent 55%),
+              #1d2730;
+}
+
+.media-thumb--article {
+  background: linear-gradient(135deg, #f8f1e7, #e7f0ea);
+}
+
+/* Play button or icon */
+
+.media-play-btn {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.92);
+  color: #1d2730;
+  font-size: 1.2rem;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.media-play-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  background-color: #ffffff;
+}
+
+.media-thumb--article .media-thumb-inner i {
+  font-size: 1.8rem;
+  color: #3e4745;
+}
+
+/* Body of card */
+
+.media-body {
+  flex: 1;
+}
+
+.media-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.22rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.media-badge--podcast {
+  background-color: rgba(36, 95, 241, 0.96);
+  color: #ffffff;
+}
+
+.media-badge--video {
+  background-color: #ffffff;
+  color: #1d2730;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.media-badge--article {
+  background-color: rgba(196, 178, 154, 0.2);
+  color: var(--color-deep);
+}
+
+.media-title {
+  color: var(--color-deep);
+}
+
+.media-description {
+  line-height: 1.5;
+}
+
+.media-source {
+  opacity: 0.8;
+}
+
+/* Responsive tweaks */
+
+@media (max-width: 991.98px) {
+  .media-filters {
+    border-radius: 24px;
+  }
+}
+/* ============================
+   AUTH / LOGIN PAGES
+   ============================ */
+
+.auth-hero {
+  position: relative;
+  min-height: 100vh;
+  padding: 5rem 0 3.5rem;
+  background-image: url("../images/dr-guli.png"); /* reuse main image */
+  background-size: cover;
+  background-position: center right;
+  overflow: hidden;
+}
+
+.auth-hero--doctor {
+  /* if you want a slightly darker overlay for doctor portal */
+}
+
+.auth-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(246, 242, 236, 0.98) 0%,
+    rgba(246, 242, 236, 0.94) 40%,
+    rgba(246, 242, 236, 0.7) 70%,
+    rgba(246, 242, 236, 0.4) 100%
+  );
+}
+
+.auth-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.auth-card {
+  background-color: var(--color-surface);
+  border-radius: 24px;
+  border: 1px solid rgba(196, 178, 154, 0.7);
+  box-shadow: var(--shadow-soft);
+  padding: 2.5rem 2.25rem;
+}
+
+.auth-card-header h1 {
+  color: var(--color-deep);
+}
+
+.auth-input {
+  border-radius: 12px;
+  border-color: rgba(176, 190, 185, 0.7);
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.auth-input:focus {
+  border-color: var(--color-deep);
+  box-shadow: 0 0 0 0.1rem rgba(31, 49, 48, 0.2);
+}
+
+.auth-footer {
+  border-top: 1px dashed rgba(186, 160, 125, 0.5);
+  padding-top: 1rem;
+  margin-top: 1.5rem;
+}
+
+.auth-legal {
+  max-width: 420px;
+  margin-inline: auto;
+}
+
+/* Responsive tweaks */
+
+@media (max-width: 991.98px) {
+  .auth-hero {
+    min-height: 80vh;
+    padding-top: 4.5rem;
+    padding-bottom: 3rem;
+    background-position: center top;
+  }
+
+  .auth-card {
+    border-radius: 22px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .auth-card {
+    padding: 2rem 1.5rem;
+  }
+}
+/* ============================
+   DOCTOR DASHBOARD
+   ============================ */
+
+.dashboard-hero {
+  position: relative;
+  padding: 4.5rem 0 3rem;
+  background-image: url("../images/dr-guli.png");
+  background-size: cover;
+  background-position: center right;
+  overflow: hidden;
+}
+
+.dashboard-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(246, 242, 236, 0.98) 0%,
+    rgba(246, 242, 236, 0.94) 40%,
+    rgba(246, 242, 236, 0.7) 70%,
+    rgba(246, 242, 236, 0.35) 100%
+  );
+}
+
+.dashboard-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard-layout {
+  align-items: stretch;
+}
+
+.dash-avatar-frame {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  padding: 4px;
+  background: radial-gradient(circle at top left, #efe1cf 0, transparent 60%),
+              radial-gradient(circle at bottom right, #dde4da 0, transparent 60%);
+  box-shadow: var(--shadow-soft);
+}
+
+.dash-avatar-frame img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+/* Stat cards */
+
+.dash-stat-card {
+  background-color: var(--color-surface);
+  border-radius: 20px;
+  border: 1px solid rgba(196, 178, 154, 0.7);
+  box-shadow: 0 16px 40px rgba(25, 32, 31, 0.15);
+  padding: 1rem 1.1rem;
+}
+
+.dash-stat-label {
+  color: var(--color-text-muted);
+}
+
+.dash-stat-value {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--color-deep);
+}
+
+.dash-stat-sub {
+  opacity: 0.85;
+}
+
+/* Generic dashboard cards */
+
+.dash-card {
+  background-color: var(--color-surface);
+  border-radius: 24px;
+  border: 1px solid rgba(196, 178, 154, 0.6);
+  box-shadow: 0 18px 45px rgba(25, 32, 31, 0.18);
+}
+
+/* Today timeline */
+
+.dash-timeline {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-left: 0.2rem;
+}
+
+.dash-timeline::before {
+  content: "";
+  position: absolute;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  left: 0.3rem;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    rgba(31, 49, 48, 0.6),
+    rgba(31, 49, 48, 0.1)
+  );
+}
+
+.dash-timeline-item {
+  position: relative;
+  margin-bottom: 1.15rem;
+}
+
+.dash-timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.dash-timeline-dot {
+  position: absolute;
+  left: -0.05rem;
+  top: 0.35rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(--color-deep);
+  border: 2px solid var(--color-bg);
+  box-shadow: 0 0 0 4px rgba(31, 49, 48, 0.18);
+}
+
+.dash-timeline-content {
+  padding-left: 1.5rem;
+}
+
+/* Pills */
+
+.dash-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.dash-pill--online {
+  background-color: rgba(36, 95, 241, 0.96);
+  color: #ffffff;
+}
+
+.dash-pill--inperson {
+  background-color: rgba(196, 178, 154, 0.2);
+  color: var(--color-deep);
+  border: 1px solid rgba(196, 178, 154, 0.7);
+}
+
+/* Responsive tweaks */
+
+@media (max-width: 991.98px) {
+  .dashboard-hero {
+    padding-top: 4.5rem;
+    padding-bottom: 2.5rem;
+    background-position: center top;
+  }
+
+  .dash-card {
+    border-radius: 22px;
+  }
 }

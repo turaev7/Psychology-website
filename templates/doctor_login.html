@@ -3,35 +3,99 @@
 {% block title %}Doctor Login - Dr. Guli Bekmurodovna{% endblock %}
 
 {% block content %}
-<div class="page-header">
-    <div class="container">
-        <h1 class="display-5"><span class="page-title">doctor_login_title</span></h1>
-    </div>
-</div>
 
-<section class="py-5">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-5">
-                <div class="login-card p-4">
-                    <div class="text-center mb-4">
-                        <i class="fas fa-user-md fa-3x mb-3 text-primary"></i>
-                        <h3><span class="login-text">doctor_access</span></h3>
-                    </div>
-                    
-                    <form method="POST" action="{{ url_for('doctor_login', lang=lang) }}">
-                        <div class="mb-3">
-                            <label for="password" class="form-label"><span class="form-text">password</span></label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary w-100">
-                            <i class="fas fa-sign-in-alt me-2"></i><span class="btn-text">login</span>
-                        </button>
-                    </form>
-                </div>
+<section class="auth-hero auth-hero--doctor d-flex align-items-center">
+  <div class="auth-hero-overlay"></div>
+  <div class="container position-relative">
+    <div class="row justify-content-center">
+      <div class="col-lg-5">
+        <div class="auth-card reveal-on-scroll">
+          <div class="auth-card-header text-center mb-4">
+            <p class="section-label mb-2">
+              Doctor portal
+            </p>
+            <h1 class="h4 fw-semibold mb-2">
+              Log in as practitioner
+            </h1>
+            <p class="text-muted tiny mb-0">
+              Access your dashboard, patient notes and media uploads securely.
+            </p>
+          </div>
+
+          <!-- LOGIN FORM -->
+          <form
+            action="{{ url_for('doctor_login', lang=lang) }}"
+            method="post"
+            novalidate
+          >
+            {# If you use CSRF: {{ form.hidden_tag() }} #}
+
+            <div class="mb-3">
+              <label for="doctor_email" class="form-label tiny text-uppercase letter-spacing-wide">
+                Email
+              </label>
+              <input
+                type="email"
+                class="form-control auth-input"
+                id="doctor_email"
+                name="email"
+                placeholder="you@clinic.com"
+                required
+              >
             </div>
+
+            <div class="mb-3">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <label for="doctor_password" class="form-label tiny text-uppercase letter-spacing-wide mb-0">
+                  Password
+                </label>
+                <a href="#" class="tiny text-muted text-decoration-none">
+                  Forgot?
+                </a>
+              </div>
+              <input
+                type="password"
+                class="form-control auth-input"
+                id="doctor_password"
+                name="password"
+                placeholder="••••••••"
+                required
+              >
+            </div>
+
+            <div class="mb-3 form-check tiny text-muted">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="doctor_remember"
+                name="remember"
+              >
+              <label class="form-check-label" for="doctor_remember">
+                Keep me signed in on this device
+              </label>
+            </div>
+
+            <div class="d-grid mb-3">
+              <button type="submit" class="btn btn-primary btn-lg rounded-pill">
+                <i class="fas fa-sign-in-alt me-2" aria-hidden="true"></i>
+                Log in
+              </button>
+            </div>
+          </form>
+
+          <div class="auth-footer text-center tiny text-muted">
+            <p class="mb-0">
+              For security reasons, log out after use on shared devices.
+            </p>
+          </div>
         </div>
+
+        <p class="auth-legal tiny text-muted text-center mt-3">
+          Unauthorized access is prohibited. Actions in this portal may be logged for security.
+        </p>
+      </div>
     </div>
+  </div>
 </section>
+
 {% endblock %}

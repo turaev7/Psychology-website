@@ -5,37 +5,52 @@
 {% block content %}
 <div class="page-header">
     <div class="container">
-        <h1 class="display-5"><span class="page-title">welcome_back</span>, {{ current_user.name }}</h1>
+        <h1 class="display-5">
+            <span class="page-title">welcome_back</span>, {{ current_user.name }}
+        </h1>
     </div>
 </div>
 
 <section class="py-5">
     <div class="container">
-        <h3 class="mb-4"><span class="dashboard-text">appointments</span></h3>
+        <h3 class="mb-4">
+            <span class="dashboard-text">appointments</span>
+        </h3>
         
         {% if appointments %}
             <div class="row">
                 {% for appointment in appointments %}
                 <div class="col-lg-6 mb-4">
-                    <div class="appointment-card p-4">
+                    <div class="appointment-card p-4 h-100">
                         <div class="d-flex justify-content-between align-items-start mb-3">
                             <div>
-                                <h5><i class="fas fa-calendar me-2"></i>{{ appointment['appointment_date'] }}</h5>
-                                <p class="mb-0"><i class="fas fa-clock me-2"></i>{{ appointment['appointment_time'] }}</p>
+                                <h5 class="mb-1">
+                                    <i class="fas fa-calendar me-2" aria-hidden="true"></i>
+                                    {{ appointment["appointment_date"] }}
+                                </h5>
+                                <p class="mb-0">
+                                    <i class="fas fa-clock me-2" aria-hidden="true"></i>
+                                    {{ appointment["appointment_time"] }}
+                                </p>
                             </div>
                             <span class="badge bg-{{ 'success' if appointment['status'] == 'scheduled' else 'secondary' }}">
-                                {{ appointment['status'] }}
+                                {{ appointment["status"] }}
                             </span>
                         </div>
                         
-                        {% if appointment['notes'] %}
+                        {% if appointment["notes"] %}
                         <div class="session-notes mt-3">
-                            <h6><i class="fas fa-notes-medical me-2"></i><span class="notes-text">session_notes</span></h6>
-                            <p class="mb-0">{{ appointment['notes'] }}</p>
+                            <h6 class="mb-2">
+                                <i class="fas fa-notes-medical me-2" aria-hidden="true"></i>
+                                <span class="notes-text">session_notes</span>
+                            </h6>
+                            <p class="mb-0">
+                                {{ appointment["notes"] }}
+                            </p>
                         </div>
                         {% else %}
                         <div class="alert alert-info mb-0">
-                            <i class="fas fa-hourglass-half me-2"></i>
+                            <i class="fas fa-hourglass-half me-2" aria-hidden="true"></i>
                             <span class="notes-text">no_notes</span>
                         </div>
                         {% endif %}
@@ -45,9 +60,14 @@
             </div>
         {% else %}
             <div class="alert alert-info">
-                <i class="fas fa-info-circle me-2"></i>
-                <span class="dashboard-text">no_appointments</span> 
-                <a href="{{ url_for('appointment', lang=lang) }}" class="alert-link"><span class="dashboard-text">book_one</span></a>
+                <i class="fas fa-info-circle me-2" aria-hidden="true"></i>
+                <span class="dashboard-text">no_appointments</span>
+                <a
+                    href="{{ url_for('appointment', lang=lang) }}"
+                    class="alert-link"
+                >
+                    <span class="dashboard-text">book_one</span>
+                </a>
             </div>
         {% endif %}
     </div>

@@ -1,78 +1,102 @@
 {% extends "base.html" %}
 
-{% block title %}Patient Portal - Dr. Guli Bekmurodovna{% endblock %}
+{% block title %}Patient Login - Dr. Guli Bekmurodovna{% endblock %}
 
 {% block content %}
-<div class="page-header">
-    <div class="container">
-        <h1 class="display-5"><span class="page-title">patient_portal</span></h1>
-    </div>
-</div>
 
-<section class="py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 mb-4">
-                <div class="login-card p-4">
-                    <h3 class="mb-4"><span class="login-text">existing_patient</span></h3>
-                    <form method="POST" action="{{ url_for('patient_login', lang=lang) }}">
-                        <input type="hidden" name="action" value="login">
-                        
-                        <div class="mb-3">
-                            <label for="login-email" class="form-label"><span class="form-text">email</span></label>
-                            <input type="email" class="form-control" id="login-email" name="email" required>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="login-password" class="form-label"><span class="form-text">password</span></label>
-                            <input type="password" class="form-control" id="login-password" name="password" required>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary w-100">
-                            <i class="fas fa-sign-in-alt me-2"></i><span class="btn-text">login</span>
-                        </button>
-                    </form>
-                </div>
+<section class="auth-hero d-flex align-items-center">
+  <div class="auth-hero-overlay"></div>
+  <div class="container position-relative">
+    <div class="row justify-content-center">
+      <div class="col-lg-5">
+        <div class="auth-card reveal-on-scroll">
+          <div class="auth-card-header text-center mb-4">
+            <p class="section-label mb-2">
+              Patient area
+            </p>
+            <h1 class="h4 fw-semibold mb-2">
+              Log in to your space
+            </h1>
+            <p class="text-muted tiny mb-0">
+              View your upcoming appointments, notes and messages from Dr. Guli.
+            </p>
+          </div>
+
+          <!-- LOGIN FORM -->
+          <form
+            action="{{ url_for('patient_login', lang=lang) }}"
+            method="post"
+            novalidate
+          >
+            {# If you use CSRF: {{ form.hidden_tag() }} #}
+
+            <div class="mb-3">
+              <label for="email" class="form-label tiny text-uppercase letter-spacing-wide">
+                Email
+              </label>
+              <input
+                type="email"
+                class="form-control auth-input"
+                id="email"
+                name="email"
+                placeholder="you@example.com"
+                required
+              >
             </div>
-            
-            <div class="col-lg-6 mb-4">
-                <div class="login-card p-4">
-                    <h3 class="mb-4"><span class="login-text">new_patient</span></h3>
-                    <form method="POST" action="{{ url_for('patient_login', lang=lang) }}">
-                        <input type="hidden" name="action" value="register">
-                        
-                        <div class="mb-3">
-                            <label for="register-name" class="form-label"><span class="form-text">name</span></label>
-                            <input type="text" class="form-control" id="register-name" name="name" required>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="register-email" class="form-label"><span class="form-text">email</span></label>
-                            <input type="email" class="form-control" id="register-email" name="email" required>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="register-phone" class="form-label"><span class="form-text">phone</span></label>
-                            <input type="tel" class="form-control" id="register-phone" name="phone" required>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="register-password" class="form-label"><span class="form-text">password</span></label>
-                            <input type="password" class="form-control" id="register-password" name="password" required>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-success w-100">
-                            <i class="fas fa-user-plus me-2"></i><span class="btn-text">register</span>
-                        </button>
-                    </form>
-                </div>
+
+            <div class="mb-3">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <label for="password" class="form-label tiny text-uppercase letter-spacing-wide mb-0">
+                  Password
+                </label>
+                <a href="#" class="tiny text-muted text-decoration-none">
+                  Forgot?
+                </a>
+              </div>
+              <input
+                type="password"
+                class="form-control auth-input"
+                id="password"
+                name="password"
+                placeholder="••••••••"
+                required
+              >
             </div>
+
+            <div class="mb-3 form-check tiny text-muted">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="remember"
+                name="remember"
+              >
+              <label class="form-check-label" for="remember">
+                Keep me signed in on this device
+              </label>
+            </div>
+
+            <div class="d-grid mb-3">
+              <button type="submit" class="btn btn-primary btn-lg rounded-pill">
+                <i class="fas fa-sign-in-alt me-2" aria-hidden="true"></i>
+                Log in
+              </button>
+            </div>
+          </form>
+
+          <div class="auth-footer text-center tiny text-muted">
+            <p class="mb-0">
+              Having trouble logging in? Contact the studio directly for support.
+            </p>
+          </div>
         </div>
-        
-        <div class="alert alert-info mt-4">
-            <i class="fas fa-info-circle me-2"></i>
-            <span class="info-text">register_info</span>
-        </div>
+
+        <p class="auth-legal tiny text-muted text-center mt-3">
+          This private area is for current patients only.  
+          Data is processed confidentially in line with professional and legal standards.
+        </p>
+      </div>
     </div>
+  </div>
 </section>
+
 {% endblock %}

@@ -1,67 +1,269 @@
 {% extends "base.html" %}
 
-{% block title %}Magazines & Podcasts - Dr. Guli Bekmurodovna{% endblock %}
+{% block title %}Media - Dr. Guli Bekmurodovna{% endblock %}
 
 {% block content %}
-<div class="page-header">
-    <div class="container">
-        <h1 class="display-5"><span class="page-title">media_title</span></h1>
-    </div>
-</div>
 
-<section class="py-5">
-    <div class="container">
-        <p class="lead mb-5 text-center"><span class="media-text">intro</span></p>
-        
-        <div class="row g-4">
-            {% for item in content %}
-            <div class="col-lg-4 col-md-6">
-                <div class="media-card p-4">
-                    <div class="media-icon mb-3">
-                        {% if item['type'] == 'magazine' %}
-                            <i class="fas fa-book-open fa-2x"></i>
-                        {% else %}
-                            <i class="fas fa-podcast fa-2x"></i>
-                        {% endif %}
-                    </div>
-                    
-                    <span class="badge bg-primary mb-2">
-                        {% if item['type'] == 'magazine' %}
-                            <span class="badge-text">magazine</span>
-                        {% else %}
-                            <span class="badge-text">podcast</span>
-                        {% endif %}
-                    </span>
-                    
-                    <h4 class="mb-3">
-                        {% if lang == 'uz' %}
-                            {{ item['title_uz'] }}
-                        {% elif lang == 'ru' %}
-                            {{ item['title_ru'] }}
-                        {% else %}
-                            {{ item['title_en'] }}
-                        {% endif %}
-                    </h4>
-                    
-                    <p class="text-muted">
-                        {% if lang == 'uz' %}
-                            {{ item['description_uz'] }}
-                        {% elif lang == 'ru' %}
-                            {{ item['description_ru'] }}
-                        {% else %}
-                            {{ item['description_en'] }}
-                        {% endif %}
-                    </p>
-                    
-                    {% if item['link'] and item['link'] != '#' %}
-                        <a href="{{ item['link'] }}" target="_blank" class="btn btn-outline-primary">
-                            <i class="fas fa-external-link-alt me-2"></i><span class="btn-text">view</span>
-                        </a>
-                    {% endif %}
-                </div>
-            </div>
-            {% endfor %}
+<!-- PAGE HERO: MEDIA -->
+<section class="page-hero page-hero--media d-flex align-items-center">
+  <div class="page-hero-overlay"></div>
+  <div class="container position-relative">
+    <div class="row">
+      <div class="col-lg-9">
+        <div class="page-hero-content reveal-on-scroll">
+          <p class="section-label mb-2">
+            Media &amp; Resources
+          </p>
+          <h1 class="h2 h1-lg fw-semibold mb-3">
+            Conversations about mental health, healing &amp; growth
+          </h1>
+          <p class="text-muted mb-0">
+            Explore podcasts, videos and articles where Dr. Guli shares thoughts on stress,
+            relationships, trauma, self-esteem and everyday emotional life.
+          </p>
         </div>
+      </div>
     </div>
+  </div>
 </section>
+
+<!-- FILTERS + SEARCH -->
+<section class="py-4 section-soft">
+  <div class="container">
+    <div class="media-filters d-flex flex-column flex-lg-row align-items-lg-center gap-3 reveal-on-scroll">
+      <div class="media-filter-chips d-flex flex-wrap gap-2">
+        <button class="media-chip active" type="button" data-filter="all">
+          All
+        </button>
+        <button class="media-chip" type="button" data-filter="podcast">
+          Podcasts
+        </button>
+        <button class="media-chip" type="button" data-filter="video">
+          Videos
+        </button>
+        <button class="media-chip" type="button" data-filter="article">
+          Articles
+        </button>
+      </div>
+
+      <div class="ms-lg-auto media-search-wrapper">
+        <div class="input-group media-search-input">
+          <span class="input-group-text border-0">
+            <i class="fas fa-search" aria-hidden="true"></i>
+          </span>
+          <input
+            type="text"
+            class="form-control border-0"
+            placeholder="Search by topic, title or keyword"
+            id="media-search"
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEDIA GRID -->
+<section class="py-5">
+  <div class="container">
+    <div class="row g-4" id="media-grid">
+
+      <!-- Example MEDIA CARD 1 -->
+      <div class="col-md-6 col-lg-4 media-item" data-type="podcast" data-title="burnout relationships work">
+        <article class="media-card h-100 reveal-on-scroll">
+          <div class="media-thumb media-thumb--audio">
+            <div class="media-thumb-inner">
+              <button class="media-play-btn" type="button">
+                <i class="fas fa-play" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          <div class="media-body p-3 p-lg-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="media-badge media-badge--podcast">
+                Podcast
+              </span>
+              <span class="media-meta tiny text-muted">
+                38 min
+              </span>
+            </div>
+            <h2 class="media-title h5 mb-2">
+              When work, family &amp; emotions collide
+            </h2>
+            <p class="media-description text-muted tiny mb-3">
+              A conversation about balancing responsibilities, recognizing burnout and learning
+              to set gentle but firm boundaries.
+            </p>
+            <p class="media-source tiny text-muted mb-0">
+              Featured on: “Mindful Mornings”
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Example MEDIA CARD 2 -->
+      <div class="col-md-6 col-lg-4 media-item" data-type="video" data-title="anxiety panic breathing">
+        <article class="media-card h-100 reveal-on-scroll">
+          <div class="media-thumb media-thumb--video">
+            <div class="media-thumb-inner">
+              <button class="media-play-btn" type="button">
+                <i class="fas fa-play" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          <div class="media-body p-3 p-lg-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="media-badge media-badge--video">
+                Video
+              </span>
+              <span class="media-meta tiny text-muted">
+                12 min
+              </span>
+            </div>
+            <h2 class="media-title h5 mb-2">
+              Calming the nervous system during anxiety
+            </h2>
+            <p class="media-description text-muted tiny mb-3">
+              Simple somatic tools and breathing practices to gently bring the body back to safety
+              during moments of overwhelm.
+            </p>
+            <p class="media-source tiny text-muted mb-0">
+              Recorded for: “Evening Reflection” series
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Example MEDIA CARD 3 -->
+      <div class="col-md-6 col-lg-4 media-item" data-type="article" data-title="trauma childhood inner child">
+        <article class="media-card h-100 reveal-on-scroll">
+          <div class="media-thumb media-thumb--article">
+            <div class="media-thumb-inner">
+              <i class="fas fa-pen-nib" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div class="media-body p-3 p-lg-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="media-badge media-badge--article">
+                Article
+              </span>
+              <span class="media-meta tiny text-muted">
+                7 min read
+              </span>
+            </div>
+            <h2 class="media-title h5 mb-2">
+              Meeting your younger self with compassion
+            </h2>
+            <p class="media-description text-muted tiny mb-3">
+              On understanding childhood wounds, inner child work and how tenderness
+              can support deep healing in the present.
+            </p>
+            <p class="media-source tiny text-muted mb-0">
+              Published in: “Everyday Psychology”
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Example MEDIA CARD 4 -->
+      <div class="col-md-6 col-lg-4 media-item" data-type="podcast" data-title="relationship couples communication">
+        <article class="media-card h-100 reveal-on-scroll">
+          <div class="media-thumb media-thumb--audio">
+            <div class="media-thumb-inner">
+              <button class="media-play-btn" type="button">
+                <i class="fas fa-play" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          <div class="media-body p-3 p-lg-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="media-badge media-badge--podcast">
+                Podcast
+              </span>
+              <span class="media-meta tiny text-muted">
+                42 min
+              </span>
+            </div>
+            <h2 class="media-title h5 mb-2">
+              Learning to speak from the heart
+            </h2>
+            <p class="media-description text-muted tiny mb-3">
+              Exploring how couples can communicate needs, fears and hopes in a way that
+              feels safe and truly heard.
+            </p>
+            <p class="media-source tiny text-muted mb-0">
+              Featured on: “Healing in Connection”
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Example MEDIA CARD 5 -->
+      <div class="col-md-6 col-lg-4 media-item" data-type="video" data-title="self-esteem perfectionism shame">
+        <article class="media-card h-100 reveal-on-scroll">
+          <div class="media-thumb media-thumb--video">
+            <div class="media-thumb-inner">
+              <button class="media-play-btn" type="button">
+                <i class="fas fa-play" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          <div class="media-body p-3 p-lg-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="media-badge media-badge--video">
+                Video
+              </span>
+              <span class="media-meta tiny text-muted">
+                16 min
+              </span>
+            </div>
+            <h2 class="media-title h5 mb-2">
+              Softening perfectionism &amp; inner criticism
+            </h2>
+            <p class="media-description text-muted tiny mb-3">
+              How to notice the inner critic, understand what it protects and slowly
+              develop a kinder inner voice.
+            </p>
+            <p class="media-source tiny text-muted mb-0">
+              Recorded for: “Gentle Growth” channel
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Example MEDIA CARD 6 -->
+      <div class="col-md-6 col-lg-4 media-item" data-type="article" data-title="grief loss mourning">
+        <article class="media-card h-100 reveal-on-scroll">
+          <div class="media-thumb media-thumb--article">
+            <div class="media-thumb-inner">
+              <i class="fas fa-pen-nib" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div class="media-body p-3 p-lg-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="media-badge media-badge--article">
+                Article
+              </span>
+              <span class="media-meta tiny text-muted">
+                9 min read
+              </span>
+            </div>
+            <h2 class="media-title h5 mb-2">
+              Grief as a tender, living process
+            </h2>
+            <p class="media-description text-muted tiny mb-3">
+              A gentle exploration of how grief moves in waves and how we can honour loss
+              without rushing ourselves.
+            </p>
+            <p class="media-source tiny text-muted mb-0">
+              Published in: “Soulful Living”
+            </p>
+          </div>
+        </article>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 {% endblock %}

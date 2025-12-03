@@ -3,144 +3,275 @@
 {% block title %}Doctor Dashboard - Dr. Guli Bekmurodovna{% endblock %}
 
 {% block content %}
-<div class="page-header">
-    <div class="container">
-        <h1 class="display-5"><span class="page-title">doctor_dashboard</span></h1>
-    </div>
-</div>
 
-<section class="py-5">
-    <div class="container">
-        <ul class="nav nav-tabs mb-4" id="dashboardTabs" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="appointments-tab" data-bs-toggle="tab" data-bs-target="#appointments" type="button">
-                    <i class="fas fa-calendar-alt me-2"></i><span class="tab-text">appointments</span>
-                </button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="patients-tab" data-bs-toggle="tab" data-bs-target="#patients" type="button">
-                    <i class="fas fa-users me-2"></i><span class="tab-text">registered_patients</span>
-                </button>
-            </li>
-        </ul>
-
-        <div class="tab-content" id="dashboardTabContent">
-            <div class="tab-pane fade show active" id="appointments" role="tabpanel">
-                <h3 class="mb-4"><span class="dashboard-text">all_appointments</span></h3>
-                
-                {% if appointments %}
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th><span class="table-text">date</span></th>
-                                    <th><span class="table-text">time</span></th>
-                                    <th><span class="table-text">patient_name</span></th>
-                                    <th><span class="table-text">contact</span></th>
-                                    <th><span class="table-text">status</span></th>
-                                    <th><span class="table-text">session_notes</span></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for appointment in appointments %}
-                                <tr>
-                                    <td>{{ appointment['appointment_date'] }}</td>
-                                    <td>{{ appointment['appointment_time'] }}</td>
-                                    <td>
-                                        {{ appointment['patient_name'] }}
-                                        {% if appointment['patient_registered_name'] %}
-                                            <span class="badge bg-success ms-2"><i class="fas fa-check"></i> <span class="badge-text">registered</span></span>
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        <small>{{ appointment['patient_email'] }}</small><br>
-                                        <small>{{ appointment['patient_phone'] }}</small>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-{{ 'success' if appointment['status'] == 'scheduled' else 'secondary' }}">
-                                            {{ appointment['status'] }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        {% if appointment['patient_id'] %}
-                                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#notesModal{{ appointment['id'] }}">
-                                                {% if appointment['notes'] %}
-                                                    <i class="fas fa-edit"></i> <span class="btn-text">edit_notes</span>
-                                                {% else %}
-                                                    <i class="fas fa-plus"></i> <span class="btn-text">add_notes</span>
-                                                {% endif %}
-                                            </button>
-                                            
-                                            <div class="modal fade" id="notesModal{{ appointment['id'] }}" tabindex="-1">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title"><span class="modal-text">session_notes_for</span> {{ appointment['patient_name'] }}</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                                        </div>
-                                                        <form method="POST" action="{{ url_for('add_note', appointment_id=appointment['id']) }}">
-                                                            <div class="modal-body">
-                                                                <textarea class="form-control" name="notes" rows="5" required>{{ appointment['notes'] or '' }}</textarea>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><span class="btn-text">close</span></button>
-                                                                <button type="submit" class="btn btn-primary"><span class="btn-text">save</span></button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        {% else %}
-                                            <small class="text-muted"><span class="table-text">not_registered</span></small>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                {% else %}
-                    <div class="alert alert-info">
-                        <i class="fas fa-info-circle me-2"></i>
-                        <span class="dashboard-text">no_appointments_yet</span>
-                    </div>
-                {% endif %}
-            </div>
-
-            <div class="tab-pane fade" id="patients" role="tabpanel">
-                <h3 class="mb-4"><span class="dashboard-text">registered_patients</span></h3>
-                
-                {% if patients %}
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th><span class="table-text">name</span></th>
-                                    <th><span class="table-text">email</span></th>
-                                    <th><span class="table-text">phone</span></th>
-                                    <th><span class="table-text">registered_on</span></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for patient in patients %}
-                                <tr>
-                                    <td>{{ patient['name'] }}</td>
-                                    <td>{{ patient['email'] }}</td>
-                                    <td>{{ patient['phone'] or 'N/A' }}</td>
-                                    <td>{{ patient['created_at'] }}</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                {% else %}
-                    <div class="alert alert-info">
-                        <i class="fas fa-info-circle me-2"></i>
-                        <span class="dashboard-text">no_patients_yet</span>
-                    </div>
-                {% endif %}
-            </div>
+<!-- DASHBOARD HERO -->
+<section class="dashboard-hero d-flex align-items-center">
+  <div class="dashboard-hero-overlay"></div>
+  <div class="container position-relative">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="page-hero-content reveal-on-scroll">
+          <p class="section-label mb-2">
+            Doctor dashboard
+          </p>
+          <h1 class="h2 h1-lg fw-semibold mb-2">
+            Welcome back, Dr. Guli
+          </h1>
+          <p class="text-muted mb-0 tiny">
+            Overview of today’s schedule, upcoming sessions and quick access to your tools.
+          </p>
         </div>
+      </div>
+      <div class="col-lg-4 d-none d-lg-flex justify-content-end align-items-center">
+        <div class="dash-avatar-frame reveal-on-scroll">
+          <img
+            src="{{ url_for('static', filename='images/dr-guli-small.png') }}"
+            alt="Dr. Guli"
+            loading="lazy"
+          >
+        </div>
+      </div>
     </div>
+  </div>
 </section>
+
+<!-- DASHBOARD CONTENT -->
+<section class="py-5">
+  <div class="container">
+    <div class="row g-4 dashboard-layout">
+      <!-- LEFT COLUMN: STATS + TODAY -->
+      <div class="col-lg-8">
+        <!-- TOP STATS -->
+        <div class="row g-3 mb-3">
+          <div class="col-md-4">
+            <div class="dash-stat-card reveal-on-scroll">
+              <p class="dash-stat-label tiny text-uppercase letter-spacing-wide mb-1">
+                Today’s sessions
+              </p>
+              <p class="dash-stat-value mb-0">
+                5
+              </p>
+              <p class="dash-stat-sub tiny text-muted mb-0">
+                3 online · 2 in person
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="dash-stat-card reveal-on-scroll">
+              <p class="dash-stat-label tiny text-uppercase letter-spacing-wide mb-1">
+                This week
+              </p>
+              <p class="dash-stat-value mb-0">
+                18
+              </p>
+              <p class="dash-stat-sub tiny text-muted mb-0">
+                Sessions scheduled
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="dash-stat-card reveal-on-scroll">
+              <p class="dash-stat-label tiny text-uppercase letter-spacing-wide mb-1">
+                New patients
+              </p>
+              <p class="dash-stat-value mb-0">
+                3
+              </p>
+              <p class="dash-stat-sub tiny text-muted mb-0">
+                First meetings this week
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- TODAY'S SCHEDULE -->
+        <div class="dash-card p-3 p-lg-4 mb-4 reveal-on-scroll">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+              <p class="section-label mb-1">
+                Today
+              </p>
+              <h2 class="h5 fw-semibold mb-0">
+                Sessions schedule
+              </h2>
+            </div>
+            <span class="tiny text-muted">
+              Times are shown in your local time zone
+            </span>
+          </div>
+
+          <div class="dash-timeline">
+            <!-- Example item 1 -->
+            <div class="dash-timeline-item">
+              <div class="dash-timeline-dot"></div>
+              <div class="dash-timeline-content">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <p class="mb-0 tiny text-muted">
+                    09:00 – 09:50 · Online
+                  </p>
+                  <span class="dash-pill dash-pill--online">
+                    Online
+                  </span>
+                </div>
+                <p class="mb-0">
+                  A. S. – Anxiety &amp; panic episodes
+                </p>
+              </div>
+            </div>
+
+            <!-- Example item 2 -->
+            <div class="dash-timeline-item">
+              <div class="dash-timeline-dot"></div>
+              <div class="dash-timeline-content">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <p class="mb-0 tiny text-muted">
+                    11:00 – 11:50 · Studio
+                  </p>
+                  <span class="dash-pill dash-pill--inperson">
+                    In person
+                  </span>
+                </div>
+                <p class="mb-0">
+                  B. T. – Burnout &amp; work-related stress
+                </p>
+              </div>
+            </div>
+
+            <!-- Example item 3 -->
+            <div class="dash-timeline-item">
+              <div class="dash-timeline-dot"></div>
+              <div class="dash-timeline-content">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <p class="mb-0 tiny text-muted">
+                    14:00 – 14:50 · Online
+                  </p>
+                  <span class="dash-pill dash-pill--online">
+                    Online
+                  </span>
+                </div>
+                <p class="mb-0">
+                  C. M. – Relationship patterns
+                </p>
+              </div>
+            </div>
+
+            <!-- Example item 4 -->
+            <div class="dash-timeline-item">
+              <div class="dash-timeline-dot"></div>
+              <div class="dash-timeline-content">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <p class="mb-0 tiny text-muted">
+                    16:00 – 16:50 · Studio
+                  </p>
+                  <span class="dash-pill dash-pill--inperson">
+                    In person
+                  </span>
+                </div>
+                <p class="mb-0">
+                  D. R. – Grief &amp; loss
+                </p>
+              </div>
+            </div>
+
+            <!-- Example item 5 -->
+            <div class="dash-timeline-item">
+              <div class="dash-timeline-dot"></div>
+              <div class="dash-timeline-content">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <p class="mb-0 tiny text-muted">
+                    18:00 – 18:50 · Online
+                  </p>
+                  <span class="dash-pill dash-pill--online">
+                    Online
+                  </span>
+                </div>
+                <p class="mb-0">
+                  E. K. – Self-esteem &amp; perfectionism
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: QUICK ACTIONS + NOTES -->
+      <div class="col-lg-4">
+        <!-- Quick actions -->
+        <div class="dash-card p-3 p-lg-4 mb-4 reveal-on-scroll">
+          <p class="section-label mb-2">
+            Quick actions
+          </p>
+          <div class="d-grid gap-2">
+            <a
+              href="{{ url_for('appointment', lang=lang) }}"
+              class="btn btn-primary btn-sm d-flex align-items-center justify-content-center gap-2"
+            >
+              <i class="fas fa-calendar-plus" aria-hidden="true"></i>
+              <span class="btn-text tiny">
+                View appointment requests
+              </span>
+            </a>
+            <a
+              href="{{ url_for('media', lang=lang) }}"
+              class="btn btn-outline-secondary btn-sm d-flex align-items-center justify-content-center gap-2"
+            >
+              <i class="fas fa-play-circle" aria-hidden="true"></i>
+              <span class="btn-text tiny">
+                Open media page
+              </span>
+            </a>
+            <!-- This used to call url_for('doctor_media', ...) and caused BuildError -->
+            <a
+              href="#"
+              class="btn btn-outline-secondary btn-sm d-flex align-items-center justify-content-center gap-2"
+            >
+              <i class="fas fa-upload" aria-hidden="true"></i>
+              <span class="btn-text tiny">
+                Upload new media
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Notes / Reminders -->
+        <div class="dash-card p-3 p-lg-4 mb-4 reveal-on-scroll">
+          <p class="section-label mb-2">
+            Notes for today
+          </p>
+          <ul class="list-unstyled mb-0">
+            <li class="mb-2 d-flex align-items-start gap-2">
+              <span class="approach-dot mt-1"></span>
+              <p class="mb-0 tiny text-muted">
+                Review treatment plan updates before the 11:00 studio session.
+              </p>
+            </li>
+            <li class="mb-2 d-flex align-items-start gap-2">
+              <span class="approach-dot mt-1"></span>
+              <p class="mb-0 tiny text-muted">
+                Prepare psychoeducation handout about burnout for the 14:00 session.
+              </p>
+            </li>
+            <li class="mb-0 d-flex align-items-start gap-2">
+              <span class="approach-dot mt-1"></span>
+              <p class="mb-0 tiny text-muted">
+                Send follow-up email with grounding exercises to yesterday’s new patient.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <!-- System / Security note -->
+        <div class="dash-card p-3 p-lg-4 tiny text-muted reveal-on-scroll">
+          <p class="mb-1 fw-semibold">
+            Security notice
+          </p>
+          <p class="mb-0">
+            Remember to log out if you leave this device unattended, especially in shared spaces.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 {% endblock %}

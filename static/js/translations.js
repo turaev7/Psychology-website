@@ -13,13 +13,13 @@ const translations = {
         doctor_access: "Doctor Access",
         doctor_login: "Doctor Login",
         rights: "All rights reserved",
-        
+
         welcome: "Welcome to Healing & Growth",
         tagline: "Your journey to mental wellness starts here with Dr. Guli Bekmurodovna",
         book_appointment: "Book Appointment",
         learn_more: "Learn More",
         schedule_now: "Schedule Now",
-        
+
         specializations: "Areas of Expertise",
         body_therapy: "Body-Oriented Psychotherapy",
         body_therapy_desc: "Integrating physical sensations and emotions for holistic healing",
@@ -27,10 +27,10 @@ const translations = {
         personal_growth_desc: "Supporting your journey of self-discovery and transformation",
         relationships: "Relationship Counseling",
         relationships_desc: "Building healthier connections and resolving conflicts",
-        
+
         ready_to_start: "Ready to Start Your Journey?",
         first_step: "Take the first step towards better mental health today",
-        
+
         about_title: "About Dr. Guli Bekmurodovna",
         professional_title: "Clinical Psychologist & Psychotherapist",
         experience_title: "Experience & Background",
@@ -45,7 +45,7 @@ const translations = {
         phone: "Phone",
         email: "Email",
         social: "Social Media",
-        
+
         appointment_title: "Book Your Appointment",
         intro: "Schedule a session at your convenience. No registration required for booking.",
         name: "Full Name",
@@ -53,7 +53,7 @@ const translations = {
         time: "Preferred Time",
         note: "Note: Registration is required to view session notes from Dr. Guli. You can register after booking or anytime via the Patient Login page.",
         book_now: "Book Appointment",
-        
+
         patient_portal: "Patient Portal",
         existing_patient: "Existing Patient",
         new_patient: "New Patient Registration",
@@ -61,14 +61,14 @@ const translations = {
         login: "Login",
         register: "Register",
         register_info: "Registered patients can view their appointment history and read session notes from Dr. Guli.",
-        
+
         welcome_back: "Welcome Back",
         appointments: "My Appointments",
         session_notes: "Session Notes",
         no_notes: "Session notes will appear here after your appointment",
         no_appointments: "You don't have any appointments yet.",
         book_one: "Book one now",
-        
+
         doctor_login_title: "Doctor Portal Access",
         doctor_dashboard: "Doctor Dashboard",
         all_appointments: "All Appointments",
@@ -85,12 +85,61 @@ const translations = {
         no_appointments_yet: "No appointments scheduled yet",
         no_patients_yet: "No registered patients yet",
         registered_on: "Registered On",
+
         
-        media_title: "Magazines & Podcasts",
         magazine: "Magazine",
         podcast: "Podcast",
         view: "View",
-        
+        media_title: "Magazines, Podcasts & Media",
+        media_intro: "Explore podcasts, radio shows, videos and articles where Dr. Guli shares her therapeutic insights.",
+        media_admin_title: "Media Library Admin",
+        media_admin: "Manage Media",
+        media_filter_all: "All",
+        media_filter_podcast: "Podcasts",
+        media_filter_magazine: "Articles & Magazines",
+        media_filter_radio: "Radio Shows",
+        media_filter_video: "Videos",
+        media_search_placeholder: "Search podcasts, articles or shows...",
+        radio: "Radio",
+        video: "Video",
+        media_admin_title: "Media Admin",
+        media_admin_description: "Add or edit podcasts, articles, radio shows and videos.",
+        media_add_new: "Add New Media Item",
+        media_edit_item: "Edit Media Item",
+        media_titles: "Titles",
+        media_descriptions: "Descriptions",
+        media_type: "Type",
+        media_link: "Link (URL)",
+        title_en: "Title (English)",
+        title_uz: "Title (Uzbek)",
+        title_ru: "Title (Russian)",
+        description_en: "Description (English)",
+        description_uz: "Description (Uzbek)",
+        description_ru: "Description (Russian)",
+        media_existing_items: "Existing Media Items",
+        no_link: "No link available",
+        media_no_items: "No media items yet.",
+        cancel: "Cancel",
+        edit: "Edit",
+        delete: "Delete",
+        actions: "Actions",
+        type: "Type",
+        itle: "Title",
+        link: "Link",
+        media_stat_total: "Total items",
+        media_stat_podcasts: "Podcasts",
+        media_stat_magazines: "Articles & magazines",
+        media_stat_other: "Radio & video",
+        mark_completed: "Mark completed",
+        already_completed: "Completed",
+        completed: "Completed",
+        actions: "Actions",
+
+
+
+
+
+
         table: {
             date: "Date",
             time: "Time",
@@ -98,7 +147,7 @@ const translations = {
             name: "Name"
         }
     },
-    
+
     uz: {
         home: "Bosh sahifa",
         about: "Haqida",
@@ -113,13 +162,13 @@ const translations = {
         doctor_access: "Shifokor uchun",
         doctor_login: "Shifokor kirish",
         rights: "Barcha huquqlar himoyalangan",
-        
+
         welcome: "Shifo va O'sishga Xush Kelibsiz",
         tagline: "Ruhiy salomatlikka yo'lingiz Dr. Guli Bekmurodovna bilan boshlanadi",
         book_appointment: "Qabulga yozilish",
         learn_more: "Batafsil",
         schedule_now: "Hozir yozilish",
-        
+
         specializations: "Mutaxassislik Sohalari",
         body_therapy: "Tanaga Yo'naltirilgan Psixoterapiya",
         body_therapy_desc: "Jismoniy his-tuyg'ular va hissiyotlarni yaxlit davolash uchun birlashtirish",
@@ -127,25 +176,25 @@ const translations = {
         personal_growth_desc: "O'zingizni kashf qilish va o'zgarish yo'lingizni qo'llab-quvvatlash",
         relationships: "Munosabatlar Maslahati",
         relationships_desc: "Sog'lom aloqalar qurish va nizolarni hal qilish",
-        
+
         ready_to_start: "Sayohatingizni Boshlashga Tayyormisiz?",
         first_step: "Bugun yaxshi ruhiy salomatlik tomon birinchi qadamni qo'ying",
-        
+
         about_title: "Dr. Guli Bekmurodovna Haqida",
         professional_title: "Klinik Psixolog va Psixoterapevt",
         experience_title: "Tajriba va Ma'lumot",
-        intro: "Klinik psixologiya va psixoterapiyada 10 yildan ortiq tajribaga ega bo'lib, men aql va tana o'rtasidagi bog'lanishni hurmat qiladigan tanaga yo'naltirilgan terapevtik yondashuvlarda mutaxassismanж",
+        intro: "Klinik psixologiya va psixoterapiyada 10 yildan ortiq tajribaga ega bo'lib, men aql va tana o'rtasidagi bog'lanishni hurmat qiladigan tanaga yo'naltirilgan terapevtik yondashuvlarda mutaxassisman.",
         expertise: "Mutaxassislik Sohalari",
         expertise_1: "Tanaga yo'naltirilgan psixoterapiya va somatik tajriba",
         expertise_2: "Shaxsiy o'sish va o'z-o'zini rivojlantirish maslahati",
         expertise_3: "Munosabatlar va juftliklar terapiyasi",
         expertise_4: "Stress boshqaruvi va hissiy tartibga solish",
         approach_title: "Mening Yondashuvim",
-        approach_desc: "Men mijozlar o'zlarining ichki dunyosini o'rganishlari mumkin bo'lgan xavfsiz, hukmsiз makonni yaratishga ishonaman. Mening terapevtik yondashuvim aql-tana xabardorligini birlashtiradi va jismoniy his-tuyg'ular va hissiy tajribalar o'rtasidagi chuqur aloqani tushunishga yordam beradi.",
+        approach_desc: "Men mijozlar o'zlarining ichki dunyosini o'rganishlari mumkin bo'lgan xavfsiz, hukmsiz makonni yaratishga ishonaman. Mening terapevtik yondashuvim aql-tana xabardorligini birlashtiradi va jismoniy his-tuyg'ular va hissiy tajribalar o'rtasidagi chuqur aloqani tushunishga yordam beradi.",
         phone: "Telefon",
         email: "Elektron pochta",
         social: "Ijtimoiy Tarmoqlar",
-        
+
         appointment_title: "Qabulga Yoziling",
         intro: "Qulay vaqtingizda seansni belgilang. Yozilish uchun ro'yxatdan o'tish shart emas.",
         name: "To'liq ism",
@@ -153,7 +202,7 @@ const translations = {
         time: "Vaqt",
         note: "Eslatma: Dr. Gulining seans yozuvlarini ko'rish uchun ro'yxatdan o'tish talab qilinadi. Yozilgandan keyin yoki istalgan vaqtda Bemor kirish sahifasi orqali ro'yxatdan o'tishingiz mumkin.",
         book_now: "Yozilish",
-        
+
         patient_portal: "Bemor Portali",
         existing_patient: "Ro'yxatdan O'tgan Bemor",
         new_patient: "Yangi Bemor Ro'yxati",
@@ -161,14 +210,14 @@ const translations = {
         login: "Kirish",
         register: "Ro'yxatdan o'tish",
         register_info: "Ro'yxatdan o'tgan bemorlar o'zlarining qabul tarixini ko'rishlari va Dr. Gulining seans yozuvlarini o'qishlari mumkin.",
-        
+
         welcome_back: "Xush Kelibsiz",
         appointments: "Mening Qabullarim",
         session_notes: "Seans Yozuvlari",
         no_notes: "Qabuldan keyin seans yozuvlari shu yerda paydo bo'ladi",
         no_appointments: "Sizda hali qabullar yo'q.",
         book_one: "Hozir yoziling",
-        
+
         doctor_login_title: "Shifokor Portali Kirish",
         doctor_dashboard: "Shifokor Boshqaruv Paneli",
         all_appointments: "Barcha Qabullar",
@@ -185,12 +234,60 @@ const translations = {
         no_appointments_yet: "Hali qabullar rejalashtirilmagan",
         no_patients_yet: "Hali ro'yxatdan o'tgan bemorlar yo'q",
         registered_on: "Ro'yxatdan o'tgan sana",
-        
-        media_title: "Jurnallar va Podkastlar",
+
+        media_title: "Jurnallar, podkastlar va media",
+        media_intro: "Dr. Guli o‘zining terapevtik qarashlari bilan ishtirok etgan podkastlar, radio eshittirishlar, videolar va maqolalarni bu yerdan topishingiz mumkin.",
         magazine: "Jurnal",
         podcast: "Podkast",
         view: "Ko'rish",
-        
+        media_admin_title: "Media Kutubxonasi",
+        media_admin: "Media boshqaruvi",
+        media_filter_all: "Barchasi",
+        media_filter_podcast: "Podkastlar",
+        media_filter_magazine: "Maqolalar va jurnallar",
+        media_filter_radio: "Radio eshittirishlar",
+        media_filter_video: "Videolar",
+        media_search_placeholder: "Podkast, maqola yoki eshittirish qidiring...",
+        radio: "Radio",
+        video: "Video",
+
+        media_admin_title: "Media Boshqaruvi",
+        media_admin_description: "Podkastlar, maqolalar, radio eshittirishlar va videolarni qo‘shish yoki tahrirlash.",
+        media_add_new: "Yangi media qo‘shish",
+        media_edit_item: "Medianing maʼlumotini tahrirlash",
+        media_titles: "Sarlavhalar",
+        media_descriptions: "Tavsiflar",
+        media_type: "Turi",
+        media_link: "Havola (URL)",
+        title_en: "Sarlavha (Inglizcha)",
+        title_uz: "Sarlavha (O‘zbekcha)",
+        title_ru: "Sarlavha (Ruscha)",
+        description_en: "Tavsif (Inglizcha)",
+        description_uz: "Tavsif (O‘zbekcha)",
+        description_ru: "Tavsif (Ruscha)",
+        media_existing_items: "Mavjud media yozuvlari",
+        no_link: "Havola mavjud emas",
+        media_no_items: "Hali media qo‘shilmagan.",
+        cancel: "Bekor qilish",
+        edit: "Tahrirlash",
+        delete: "O‘chirish",
+        actions: "Harakatlar",
+        type: "Tur",
+        title: "Sarlavha",
+        link: "Havola",
+        media_stat_total: "Jami yozuvlar",
+        media_stat_podcasts: "Podkastlar",
+        media_stat_magazines: "Maqola va jurnallar",
+        media_stat_other: "Radio va video",
+        mark_completed: "Tugallangan deb belgilash",
+        already_completed: "Tugallangan",
+        completed: "Tugallangan",
+        actions: "Harakatlar",
+
+
+
+
+
         table: {
             date: "Sana",
             time: "Vaqt",
@@ -198,7 +295,7 @@ const translations = {
             name: "Ism"
         }
     },
-    
+
     ru: {
         home: "Главная",
         about: "О враче",
@@ -213,13 +310,13 @@ const translations = {
         doctor_access: "Доступ врача",
         doctor_login: "Вход врача",
         rights: "Все права защищены",
-        
+
         welcome: "Добро пожаловать в Исцеление и Рост",
         tagline: "Ваш путь к психическому здоровью начинается здесь с доктором Гули Бекмуродовной",
         book_appointment: "Записаться",
         learn_more: "Узнать больше",
         schedule_now: "Записаться сейчас",
-        
+
         specializations: "Области специализации",
         body_therapy: "Телесно-ориентированная психотерапия",
         body_therapy_desc: "Интеграция физических ощущений и эмоций для целостного исцеления",
@@ -227,10 +324,10 @@ const translations = {
         personal_growth_desc: "Поддержка вашего путешествия к самопознанию и трансформации",
         relationships: "Консультирование по отношениям",
         relationships_desc: "Построение здоровых связей и разрешение конфликтов",
-        
+
         ready_to_start: "Готовы начать свой путь?",
         first_step: "Сделайте первый шаг к лучшему психическому здоровью сегодня",
-        
+
         about_title: "О докторе Гули Бекмуродовне",
         professional_title: "Клинический психолог и психотерапевт",
         experience_title: "Опыт и образование",
@@ -245,7 +342,7 @@ const translations = {
         phone: "Телефон",
         email: "Эл. почта",
         social: "Социальные сети",
-        
+
         appointment_title: "Записаться на прием",
         intro: "Запланируйте сеанс в удобное для вас время. Регистрация для записи не требуется.",
         name: "Полное имя",
@@ -253,7 +350,7 @@ const translations = {
         time: "Время",
         note: "Примечание: Регистрация требуется для просмотра заметок о сеансе от доктора Гули. Вы можете зарегистрироваться после записи или в любое время через страницу входа пациента.",
         book_now: "Записаться",
-        
+
         patient_portal: "Портал пациента",
         existing_patient: "Существующий пациент",
         new_patient: "Регистрация нового пациента",
@@ -261,14 +358,14 @@ const translations = {
         login: "Войти",
         register: "Регистрация",
         register_info: "Зарегистрированные пациенты могут просматривать историю своих приемов и читать заметки о сеансах от доктора Гули.",
-        
+
         welcome_back: "С возвращением",
         appointments: "Мои приемы",
         session_notes: "Заметки о сеансе",
         no_notes: "Заметки о сеансе появятся здесь после вашего приема",
         no_appointments: "У вас пока нет назначенных приемов.",
         book_one: "Записаться сейчас",
-        
+
         doctor_login_title: "Доступ к порталу врача",
         doctor_dashboard: "Панель врача",
         all_appointments: "Все приемы",
@@ -285,12 +382,61 @@ const translations = {
         no_appointments_yet: "Приемы еще не запланированы",
         no_patients_yet: "Зарегистрированных пациентов пока нет",
         registered_on: "Дата регистрации",
-        
-        media_title: "Журналы и подкасты",
+
+        media_title: "Журналы, подкасты и медиа",
+        media_intro: "Здесь вы найдете подкасты, радиопередачи, видео и статьи, в которых доктор Гули делится своим терапевтическим опытом.",
+        media_filter_all: "Все",
+        media_filter_podcast: "Подкасты",
+        media_filter_magazine: "Статьи и журналы",
+        media_filter_radio: "Радиопередачи",
+        media_filter_video: "Видео",
+        media_search_placeholder: "Искать подкасты, статьи или передачи...",
+        radio: "Радио",
+        video: "Видео",
+
         magazine: "Журнал",
         podcast: "Подкаст",
         view: "Просмотр",
-        
+        media_admin_title: "Медиа-библиотека",
+        media_admin: "Управление медиа",
+
+        media_admin_title: "Управление медиа",
+        media_admin_description: "Добавляйте и редактируйте подкасты, статьи, радиопередачи и видео.",
+        media_add_new: "Добавить новый медиа-материал",
+        edia_edit_item: "Редактировать медиа-материал",
+        media_titles: "Заголовки",
+        media_descriptions: "Описания",
+        media_type: "Тип",
+        media_link: "Ссылка (URL)",
+        title_en: "Заголовок (английский)",
+        title_uz: "Заголовок (узбекский)",
+        title_ru: "Заголовок (русский)",
+        description_en: "Описание (английский)",
+        description_uz: "Описание (узбекский)",
+        description_ru: "Описание (русский)",
+        edia_existing_items: "Существующие медиа-материалы",
+        no_link: "Ссылка отсутствует",
+        media_no_items: "Пока нет ни одного медиа-материала.",
+        cancel: "Отмена",
+        edit: "Редактировать",
+        delete: "Удалить",
+        actions: "Действия",
+        type: "Тип",
+        title: "Заголовок",
+        link: "Ссылка",
+        media_stat_total: "Всего материалов",
+        media_stat_podcasts: "Подкасты",
+        media_stat_magazines: "Статьи и журналы",
+        media_stat_other: "Радио и видео",
+        mark_completed: "Отметить как завершённый",
+        already_completed: "Завершён",
+        completed: "Завершён",
+        actions: "Действия",
+
+
+
+
+
         table: {
             date: "Дата",
             time: "Время",
