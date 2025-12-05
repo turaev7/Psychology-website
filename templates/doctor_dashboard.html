@@ -4,270 +4,367 @@
 
 {% block content %}
 
-<!-- DASHBOARD HERO -->
-<section class="dashboard-hero d-flex align-items-center">
+<!-- HERO SECTION -->
+<section class="dashboard-hero">
   <div class="dashboard-hero-overlay"></div>
-  <div class="container position-relative">
-    <div class="row">
-      <div class="col-lg-8">
-        <div class="page-hero-content reveal-on-scroll">
-          <p class="section-label mb-2">
-            Doctor dashboard
-          </p>
-          <h1 class="h2 h1-lg fw-semibold mb-2">
-            Welcome back, Dr. Guli
-          </h1>
-          <p class="text-muted mb-0 tiny">
-            Overview of today’s schedule, upcoming sessions and quick access to your tools.
-          </p>
+  <div class="container scroll-reveal">
+    <div class="row dashboard-layout align-items-center">
+      <!-- Left: Avatar + welcome + stats -->
+      <div class="col-lg-7 mb-4 mb-lg-0">
+        <div class="d-flex align-items-center mb-3">
+          <div class="dash-avatar-frame me-3">
+            <img
+              src="{{ url_for('static', filename='images/dr-guli.png') }}"
+              alt="Dr. Guli Bekmurodovna"
+              loading="lazy"
+            >
+          </div>
+          <div>
+            <div class="tiny text-uppercase letter-spacing-wide text-muted mb-1">
+              <span class="dashboard-text">doctor_dashboard</span>
+            </div>
+            <h1 class="h1-lg mb-2">
+              <span class="dashboard-text">welcome_back</span>, {{ current_user.name }}
+            </h1>
+            <p class="mb-0 text-muted small">
+              <span class="dashboard-text">tagline</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <!-- Stat: All appointments -->
+          <div class="col-sm-6">
+            <div class="dash-stat-card">
+              <div class="dash-stat-label tiny text-uppercase letter-spacing-wide mb-1">
+                <span class="dashboard-text">all_appointments</span>
+              </div>
+              <div class="dash-stat-value">
+                {{ appointments|length }}
+              </div>
+              <div class="dash-stat-sub small">
+                <span class="dashboard-text">doctor_stat_active_sub</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stat: Registered patients -->
+          <div class="col-sm-6">
+            <div class="dash-stat-card">
+              <div class="dash-stat-label tiny text-uppercase letter-spacing-wide mb-1">
+                <span class="dashboard-text">registered_patients</span>
+              </div>
+              <div class="dash-stat-value">
+                {{ patients|length }}
+              </div>
+              <div class="dash-stat-sub small">
+                <span class="dashboard-text">doctor_stat_patients_sub</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-lg-4 d-none d-lg-flex justify-content-end align-items-center">
-        <div class="dash-avatar-frame reveal-on-scroll">
-          <img
-            src="{{ url_for('static', filename='images/dr-guli-small.png') }}"
-            alt="Dr. Guli"
-            loading="lazy"
-          >
+
+      <!-- Right: Upcoming timeline + media button -->
+      <div class="col-lg-5">
+        <div class="dash-card p-3 p-md-4">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+              <div class="tiny text-uppercase letter-spacing-wide text-muted mb-1">
+                <span class="dashboard-text">appointments</span>
+              </div>
+              <h5 class="mb-0">
+                <i class="fas fa-stream me-2" aria-hidden="true"></i>
+                <span class="dashboard-text">all_appointments</span>
+              </h5>
+            </div>
+            <a
+              href="{{ url_for('manage_media', lang=lang) }}"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="fas fa-photo-video me-1" aria-hidden="true"></i>
+              <span class="dashboard-text">media_admin</span>
+            </a>
+          </div>
+
+          {% if appointments %}
+            <div class="dash-timeline">
+              {% for appointment in appointments[:4] %}
+              <div class="dash-timeline-item">
+                <div class="dash-timeline-dot"></div>
+                <div class="dash-timeline-content">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <strong>{{ appointment['appointment_date'] }}</strong>
+                      <div class="small text-muted">
+                        <i class="fas fa-clock me-1" aria-hidden="true"></i>
+                        {{ appointment['appointment_time'] }}
+                      </div>
+                    </div>
+                    <span class="badge
+                          {% if appointment['status'] == 'scheduled' %}bg-warning text-dark
+                          {% elif appointment['status'] == 'completed' %}bg-success
+                          {% else %}bg-secondary{% endif %}">
+                      {% if appointment['status'] == 'completed' %}
+                        <span class="dashboard-text">status_completed</span>
+                      {% elif appointment['status'] == 'scheduled' %}
+                        <span class="dashboard-text">status_scheduled</span>
+                      {% else %}
+                        {{ appointment['status']|capitalize }}
+                      {% endif %}
+                    </span>
+                  </div>
+                  <div class="small mt-1">
+                    {{ appointment['patient_registered_name'] or appointment['patient_name'] }}
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            <p class="tiny text-muted mt-3 mb-0">
+              <span class="dashboard-text">doctor_upcoming_hint</span>
+            </p>
+          {% else %}
+            <p class="text-muted small mb-0">
+              <i class="fas fa-info-circle me-1" aria-hidden="true"></i>
+              <span class="dashboard-text">no_appointments_yet</span>
+            </p>
+          {% endif %}
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- DASHBOARD CONTENT -->
+<!-- MAIN DASHBOARD CONTENT -->
 <section class="py-5">
-  <div class="container">
-    <div class="row g-4 dashboard-layout">
-      <!-- LEFT COLUMN: STATS + TODAY -->
-      <div class="col-lg-8">
-        <!-- TOP STATS -->
-        <div class="row g-3 mb-3">
-          <div class="col-md-4">
-            <div class="dash-stat-card reveal-on-scroll">
-              <p class="dash-stat-label tiny text-uppercase letter-spacing-wide mb-1">
-                Today’s sessions
-              </p>
-              <p class="dash-stat-value mb-0">
-                5
-              </p>
-              <p class="dash-stat-sub tiny text-muted mb-0">
-                3 online · 2 in person
-              </p>
+  <div class="container scroll-reveal">
+    <div class="dash-card p-3 p-md-4">
+      <!-- Tabs -->
+      <ul class="nav nav-tabs mb-4 border-0" id="dashboardTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active"
+            id="appointments-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#appointments"
+            type="button"
+            role="tab"
+          >
+            <i class="fas fa-calendar-alt me-2" aria-hidden="true"></i>
+            <span class="dashboard-text">appointments</span>
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="patients-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#patients"
+            type="button"
+            role="tab"
+          >
+            <i class="fas fa-users me-2" aria-hidden="true"></i>
+            <span class="dashboard-text">registered_patients</span>
+          </button>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="dashboardTabContent">
+        <!-- APPOINTMENTS TAB -->
+        <div class="tab-pane fade show active" id="appointments" role="tabpanel" aria-labelledby="appointments-tab">
+          {% if appointments %}
+            <div class="table-responsive">
+              <table class="table table-hover doctor-table align-middle">
+                <thead>
+                  <tr>
+                    <th><span class="dashboard-text">date</span></th>
+                    <th><span class="dashboard-text">time</span></th>
+                    <th><span class="dashboard-text">patient_name</span></th>
+                    <th><span class="dashboard-text">contact</span></th>
+                    <th><span class="dashboard-text">status</span></th>
+                    <th><span class="dashboard-text">session_notes</span></th>
+                    <th><span class="dashboard-text">actions</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for appointment in appointments %}
+                  <tr>
+                    <td>{{ appointment['appointment_date'] }}</td>
+                    <td>{{ appointment['appointment_time'] }}</td>
+                    <td>
+                      {{ appointment['patient_name'] }}
+                      {% if appointment['patient_registered_name'] %}
+                        <span class="badge bg-success ms-2">
+                          <span class="dashboard-text">registered</span>
+                        </span>
+                      {% else %}
+                        <small class="text-muted">
+                          <span class="dashboard-text">not_registered</span>
+                        </small>
+                      {% endif %}
+                    </td>
+                    <td>
+                      <div class="small">
+                        <div>{{ appointment['patient_email'] }}</div>
+                        <div class="text-muted">{{ appointment['patient_phone'] }}</div>
+                      </div>
+                    </td>
+                    <td>
+                      {% if appointment['status'] == 'scheduled' %}
+                        <span class="badge bg-warning text-dark">
+                          <span class="dashboard-text">status_scheduled</span>
+                        </span>
+                      {% elif appointment['status'] == 'completed' %}
+                        <span class="badge bg-success">
+                          <span class="dashboard-text">status_completed</span>
+                        </span>
+                      {% else %}
+                        <span class="badge bg-secondary">
+                          {{ appointment['status'] }}
+                        </span>
+                      {% endif %}
+                    </td>
+                    <td>
+                      {% if appointment['notes'] %}
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-outline-primary"
+                          data-bs-toggle="modal"
+                          data-bs-target="#notesModal{{ appointment['id'] }}"
+                        >
+                          <i class="fas fa-edit me-1"></i>
+                          <span class="dashboard-text">edit_notes</span>
+                        </button>
+                      {% else %}
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-outline-secondary"
+                          data-bs-toggle="modal"
+                          data-bs-target="#notesModal{{ appointment['id'] }}"
+                        >
+                          <i class="fas fa-plus me-1"></i>
+                          <span class="dashboard-text">add_notes</span>
+                        </button>
+                      {% endif %}
+
+                      <!-- Notes Modal -->
+                      <div
+                        class="modal fade"
+                        id="notesModal{{ appointment['id'] }}"
+                        tabindex="-1"
+                        aria-hidden="true"
+                      >
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">
+                                <i class="fas fa-notes-medical me-2" aria-hidden="true"></i>
+                                <span class="dashboard-text">session_notes_for</span>
+                                {{ appointment['patient_name'] }}
+                              </h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form method="POST"
+                                  action="{{ url_for('add_note',
+                                                     appointment_id=appointment['id']) }}">
+                              <div class="modal-body">
+                                <textarea
+                                  class="form-control"
+                                  name="notes"
+                                  rows="5"
+                                  required
+                                >{{ appointment['notes'] or '' }}</textarea>
+                              </div>
+                              <div class="modal-footer">
+                                <button
+                                  type="button"
+                                  class="btn btn-secondary"
+                                  data-bs-dismiss="modal"
+                                >
+                                  <span class="dashboard-text">close</span>
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                  <span class="dashboard-text">save</span>
+                                </button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      {% if appointment['status'] == 'scheduled' %}
+                        <form
+                          method="POST"
+                          action="{{ url_for('update_appointment_status',
+                                             appointment_id=appointment['id'],
+                                             lang=lang) }}"
+                          style="display:inline;"
+                        >
+                          <input type="hidden" name="status" value="completed">
+                          <button
+                            type="submit"
+                            class="btn btn-sm btn-outline-success"
+                          >
+                            <i class="fas fa-check me-1"></i>
+                            <span class="dashboard-text">mark_completed</span>
+                          </button>
+                        </form>
+                      {% else %}
+                        <small class="text-muted">
+                          <span class="dashboard-text">already_completed</span>
+                        </small>
+                      {% endif %}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
             </div>
-          </div>
-          <div class="col-md-4">
-            <div class="dash-stat-card reveal-on-scroll">
-              <p class="dash-stat-label tiny text-uppercase letter-spacing-wide mb-1">
-                This week
-              </p>
-              <p class="dash-stat-value mb-0">
-                18
-              </p>
-              <p class="dash-stat-sub tiny text-muted mb-0">
-                Sessions scheduled
-              </p>
+          {% else %}
+            <div class="alert alert-info mb-0">
+              <i class="fas fa-info-circle me-2" aria-hidden="true"></i>
+              <span class="dashboard-text">no_appointments_yet</span>
             </div>
-          </div>
-          <div class="col-md-4">
-            <div class="dash-stat-card reveal-on-scroll">
-              <p class="dash-stat-label tiny text-uppercase letter-spacing-wide mb-1">
-                New patients
-              </p>
-              <p class="dash-stat-value mb-0">
-                3
-              </p>
-              <p class="dash-stat-sub tiny text-muted mb-0">
-                First meetings this week
-              </p>
-            </div>
-          </div>
+          {% endif %}
         </div>
 
-        <!-- TODAY'S SCHEDULE -->
-        <div class="dash-card p-3 p-lg-4 mb-4 reveal-on-scroll">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <div>
-              <p class="section-label mb-1">
-                Today
-              </p>
-              <h2 class="h5 fw-semibold mb-0">
-                Sessions schedule
-              </h2>
+        <!-- PATIENTS TAB -->
+        <div class="tab-pane fade" id="patients" role="tabpanel" aria-labelledby="patients-tab">
+          <h3 class="mb-4">
+            <span class="dashboard-text">registered_patients</span>
+          </h3>
+
+          {% if patients %}
+            <div class="table-responsive">
+              <table class="table table-hover doctor-table align-middle">
+                <thead>
+                  <tr>
+                    <th><span class="dashboard-text">name</span></th>
+                    <th><span class="dashboard-text">email</span></th>
+                    <th><span class="dashboard-text">phone</span></th>
+                    <th><span class="dashboard-text">created_at</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for patient in patients %}
+                  <tr>
+                    <td>{{ patient['name'] }}</td>
+                    <td>{{ patient['email'] }}</td>
+                    <td>{{ patient['phone'] }}</td>
+                    <td>{{ patient['created_at'] }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
             </div>
-            <span class="tiny text-muted">
-              Times are shown in your local time zone
-            </span>
-          </div>
-
-          <div class="dash-timeline">
-            <!-- Example item 1 -->
-            <div class="dash-timeline-item">
-              <div class="dash-timeline-dot"></div>
-              <div class="dash-timeline-content">
-                <div class="d-flex justify-content-between align-items-center mb-1">
-                  <p class="mb-0 tiny text-muted">
-                    09:00 – 09:50 · Online
-                  </p>
-                  <span class="dash-pill dash-pill--online">
-                    Online
-                  </span>
-                </div>
-                <p class="mb-0">
-                  A. S. – Anxiety &amp; panic episodes
-                </p>
-              </div>
+          {% else %}
+            <div class="alert alert-info mb-0">
+              <i class="fas fa-info-circle me-2" aria-hidden="true"></i>
+              <span class="dashboard-text">no_patients_yet</span>
             </div>
-
-            <!-- Example item 2 -->
-            <div class="dash-timeline-item">
-              <div class="dash-timeline-dot"></div>
-              <div class="dash-timeline-content">
-                <div class="d-flex justify-content-between align-items-center mb-1">
-                  <p class="mb-0 tiny text-muted">
-                    11:00 – 11:50 · Studio
-                  </p>
-                  <span class="dash-pill dash-pill--inperson">
-                    In person
-                  </span>
-                </div>
-                <p class="mb-0">
-                  B. T. – Burnout &amp; work-related stress
-                </p>
-              </div>
-            </div>
-
-            <!-- Example item 3 -->
-            <div class="dash-timeline-item">
-              <div class="dash-timeline-dot"></div>
-              <div class="dash-timeline-content">
-                <div class="d-flex justify-content-between align-items-center mb-1">
-                  <p class="mb-0 tiny text-muted">
-                    14:00 – 14:50 · Online
-                  </p>
-                  <span class="dash-pill dash-pill--online">
-                    Online
-                  </span>
-                </div>
-                <p class="mb-0">
-                  C. M. – Relationship patterns
-                </p>
-              </div>
-            </div>
-
-            <!-- Example item 4 -->
-            <div class="dash-timeline-item">
-              <div class="dash-timeline-dot"></div>
-              <div class="dash-timeline-content">
-                <div class="d-flex justify-content-between align-items-center mb-1">
-                  <p class="mb-0 tiny text-muted">
-                    16:00 – 16:50 · Studio
-                  </p>
-                  <span class="dash-pill dash-pill--inperson">
-                    In person
-                  </span>
-                </div>
-                <p class="mb-0">
-                  D. R. – Grief &amp; loss
-                </p>
-              </div>
-            </div>
-
-            <!-- Example item 5 -->
-            <div class="dash-timeline-item">
-              <div class="dash-timeline-dot"></div>
-              <div class="dash-timeline-content">
-                <div class="d-flex justify-content-between align-items-center mb-1">
-                  <p class="mb-0 tiny text-muted">
-                    18:00 – 18:50 · Online
-                  </p>
-                  <span class="dash-pill dash-pill--online">
-                    Online
-                  </span>
-                </div>
-                <p class="mb-0">
-                  E. K. – Self-esteem &amp; perfectionism
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT COLUMN: QUICK ACTIONS + NOTES -->
-      <div class="col-lg-4">
-        <!-- Quick actions -->
-        <div class="dash-card p-3 p-lg-4 mb-4 reveal-on-scroll">
-          <p class="section-label mb-2">
-            Quick actions
-          </p>
-          <div class="d-grid gap-2">
-            <a
-              href="{{ url_for('appointment', lang=lang) }}"
-              class="btn btn-primary btn-sm d-flex align-items-center justify-content-center gap-2"
-            >
-              <i class="fas fa-calendar-plus" aria-hidden="true"></i>
-              <span class="btn-text tiny">
-                View appointment requests
-              </span>
-            </a>
-            <a
-              href="{{ url_for('media', lang=lang) }}"
-              class="btn btn-outline-secondary btn-sm d-flex align-items-center justify-content-center gap-2"
-            >
-              <i class="fas fa-play-circle" aria-hidden="true"></i>
-              <span class="btn-text tiny">
-                Open media page
-              </span>
-            </a>
-            <!-- This used to call url_for('doctor_media', ...) and caused BuildError -->
-            <a
-              href="#"
-              class="btn btn-outline-secondary btn-sm d-flex align-items-center justify-content-center gap-2"
-            >
-              <i class="fas fa-upload" aria-hidden="true"></i>
-              <span class="btn-text tiny">
-                Upload new media
-              </span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Notes / Reminders -->
-        <div class="dash-card p-3 p-lg-4 mb-4 reveal-on-scroll">
-          <p class="section-label mb-2">
-            Notes for today
-          </p>
-          <ul class="list-unstyled mb-0">
-            <li class="mb-2 d-flex align-items-start gap-2">
-              <span class="approach-dot mt-1"></span>
-              <p class="mb-0 tiny text-muted">
-                Review treatment plan updates before the 11:00 studio session.
-              </p>
-            </li>
-            <li class="mb-2 d-flex align-items-start gap-2">
-              <span class="approach-dot mt-1"></span>
-              <p class="mb-0 tiny text-muted">
-                Prepare psychoeducation handout about burnout for the 14:00 session.
-              </p>
-            </li>
-            <li class="mb-0 d-flex align-items-start gap-2">
-              <span class="approach-dot mt-1"></span>
-              <p class="mb-0 tiny text-muted">
-                Send follow-up email with grounding exercises to yesterday’s new patient.
-              </p>
-            </li>
-          </ul>
-        </div>
-
-        <!-- System / Security note -->
-        <div class="dash-card p-3 p-lg-4 tiny text-muted reveal-on-scroll">
-          <p class="mb-1 fw-semibold">
-            Security notice
-          </p>
-          <p class="mb-0">
-            Remember to log out if you leave this device unattended, especially in shared spaces.
-          </p>
+          {% endif %}
         </div>
       </div>
     </div>

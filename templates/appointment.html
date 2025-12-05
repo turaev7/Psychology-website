@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<!-- PAGE HERO (short modern band) -->
+<!-- PAGE HERO (keep as you have it translated already) -->
 <section class="page-hero d-flex align-items-center">
   <div class="page-hero-overlay"></div>
   <div class="container position-relative">
@@ -12,13 +12,13 @@
       <div class="col-lg-8">
         <div class="page-hero-content reveal-on-scroll">
           <p class="section-label mb-2">
-            <span class="page-text">appointment_title</span>
+            <span class="section-text">intro</span>
           </p>
           <h1 class="h2 h1-lg fw-semibold mb-3">
-            <span class="page-text">intro</span>
+            <span class="section-text">appointment_title</span>
           </h1>
           <p class="text-muted mb-0">
-            <span class="page-text">note</span>
+            <span class="section-text">note</span>
           </p>
         </div>
       </div>
@@ -36,10 +36,10 @@
       <div class="col-lg-7">
         <div class="booking-card p-4 p-lg-5 reveal-on-scroll">
           <h2 class="h4 fw-semibold mb-3">
-            Appointment details
+            <span class="appointment-text">appointment_form_title</span>
           </h2>
           <p class="text-muted small mb-4">
-            Please fill in your contact information and choose a day and time for your session.
+            <span class="appointment-text">appointment_form_subtitle</span>
           </p>
 
           <form
@@ -54,7 +54,7 @@
               <!-- Full name (backend: name) -->
               <div class="col-md-6">
                 <label for="name" class="form-label tiny text-uppercase letter-spacing-wide">
-                  Full name
+                  <span class="form-text">appointment_label_name</span>
                 </label>
                 <input
                   type="text"
@@ -65,14 +65,14 @@
                   aria-required="true"
                   autocomplete="name"
                   value="{{ form.get('name', '') }}"
-                  placeholder="Enter your full name"
+                  placeholder=""
                 >
               </div>
 
               <!-- Email (backend: email) -->
               <div class="col-md-6">
                 <label for="email" class="form-label tiny text-uppercase letter-spacing-wide">
-                  Email
+                  <span class="form-text">appointment_label_email</span>
                 </label>
                 <input
                   type="email"
@@ -83,14 +83,14 @@
                   aria-required="true"
                   autocomplete="email"
                   value="{{ form.get('email', '') }}"
-                  placeholder="you@example.com"
+                  placeholder=""
                 >
               </div>
 
               <!-- Phone (backend: phone) -->
               <div class="col-md-6">
                 <label for="phone" class="form-label tiny text-uppercase letter-spacing-wide">
-                  Phone number
+                  <span class="form-text">appointment_label_phone</span>
                 </label>
                 <input
                   type="tel"
@@ -101,14 +101,14 @@
                   aria-required="true"
                   autocomplete="tel"
                   value="{{ form.get('phone', '') }}"
-                  placeholder="+998 ..."
+                  placeholder=""
                 >
               </div>
 
               <!-- Date (backend: date) -->
               <div class="col-md-3">
                 <label for="date" class="form-label tiny text-uppercase letter-spacing-wide">
-                  Preferred date
+                  <span class="form-text">appointment_label_date</span>
                 </label>
                 <input
                   type="date"
@@ -124,7 +124,7 @@
               <!-- Time (backend: time) -->
               <div class="col-md-3">
                 <label for="time" class="form-label tiny text-uppercase letter-spacing-wide">
-                  Time
+                  <span class="form-text">appointment_label_time</span>
                 </label>
                 {% set selected_time = form.get('time', '') %}
                 <select
@@ -134,7 +134,7 @@
                   required
                   aria-required="true"
                 >
-                  <option value="">Select</option>
+                  <option value="">{{ translations_placeholder if false else " " }}</option>
                   <option value="09:00" {{ 'selected' if selected_time == '09:00' else '' }}>09:00</option>
                   <option value="10:00" {{ 'selected' if selected_time == '10:00' else '' }}>10:00</option>
                   <option value="11:00" {{ 'selected' if selected_time == '11:00' else '' }}>11:00</option>
@@ -147,10 +147,10 @@
                 </select>
               </div>
 
-              <!-- Optional: Session type (NOT required by backend) -->
+              <!-- Optional: Session type -->
               <div class="col-md-6">
                 <label for="session_type" class="form-label tiny text-uppercase letter-spacing-wide">
-                  Session type (optional)
+                  <span class="form-text">appointment_label_session_type</span>
                 </label>
                 {% set selected_type = form.get('session_type', '') %}
                 <select
@@ -158,17 +158,33 @@
                   id="session_type"
                   name="session_type"
                 >
-                  <option value="" {{ 'selected' if not selected_type else '' }}>No preference</option>
-                  <option value="online" {{ 'selected' if selected_type == 'online' else '' }}>Online</option>
-                  <option value="in_person" {{ 'selected' if selected_type == 'in_person' else '' }}>In person</option>
-                  <option value="hybrid" {{ 'selected' if selected_type == 'hybrid' else '' }}>Flexible / hybrid</option>
+                  <option value="" {{ 'selected' if not selected_type else '' }}>—</option>
+
+                  <option value="online"
+                          class="form-text"
+                          {{ 'selected' if selected_type == 'online' else '' }}>
+                    appointment_session_type_online
+                  </option>
+
+                  <option value="in_person"
+                          class="form-text"
+                          {{ 'selected' if selected_type == 'in_person' else '' }}>
+                    appointment_session_type_in_person
+                  </option>
+
+                  <option value="hybrid"
+                          class="form-text"
+                          {{ 'selected' if selected_type == 'hybrid' else '' }}>
+                    appointment_session_type_hybrid
+                  </option>
                 </select>
+
               </div>
 
               <!-- Optional: Topic -->
               <div class="col-md-6">
                 <label for="topic" class="form-label tiny text-uppercase letter-spacing-wide">
-                  Focus of the session (optional)
+                  <span class="form-text">appointment_label_topic</span>
                 </label>
                 {% set selected_topic = form.get('topic', '') %}
                 <select
@@ -176,26 +192,52 @@
                   id="topic"
                   name="topic"
                 >
-                  <option value="" {{ 'selected' if not selected_topic else '' }}>Choose a topic (optional)</option>
-                  <option value="stress" {{ 'selected' if selected_topic == 'stress' else '' }}>Stress &amp; burnout</option>
-                  <option value="relationships" {{ 'selected' if selected_topic == 'relationships' else '' }}>Relationships</option>
-                  <option value="anxiety" {{ 'selected' if selected_topic == 'anxiety' else '' }}>Anxiety &amp; worry</option>
-                  <option value="self_esteem" {{ 'selected' if selected_topic == 'self_esteem' else '' }}>Self-esteem</option>
-                  <option value="other" {{ 'selected' if selected_topic == 'other' else '' }}>Other / not sure</option>
+                  <option value="" {{ 'selected' if not selected_topic else '' }}>—</option>
+
+                  <option value="stress"
+                          class="form-text"
+                          {{ 'selected' if selected_topic == 'stress' else '' }}>
+                    appointment_topic_stress
+                  </option>
+
+                  <option value="relationships"
+                          class="form-text"
+                          {{ 'selected' if selected_topic == 'relationships' else '' }}>
+                    appointment_topic_relationships
+                  </option>
+
+                  <option value="anxiety"
+                          class="form-text"
+                          {{ 'selected' if selected_topic == 'anxiety' else '' }}>
+                    appointment_topic_anxiety
+                  </option>
+
+                  <option value="self_esteem"
+                          class="form-text"
+                          {{ 'selected' if selected_topic == 'self_esteem' else '' }}>
+                    appointment_topic_self_esteem
+                  </option>
+
+                  <option value="other"
+                          class="form-text"
+                          {{ 'selected' if selected_topic == 'other' else '' }}>
+                    appointment_topic_other
+                  </option>
                 </select>
+
               </div>
 
               <!-- Message (optional) -->
               <div class="col-12">
                 <label for="message" class="form-label tiny text-uppercase letter-spacing-wide">
-                  Short message (optional)
+                  <span class="form-text">appointment_label_message</span>
                 </label>
                 <textarea
                   class="form-control"
                   id="message"
                   name="message"
                   rows="4"
-                  placeholder="You can briefly describe what you’re going through or what you expect from therapy."
+                  placeholder=""
                 >{{ form.get('message', '') }}</textarea>
               </div>
 
@@ -203,7 +245,7 @@
               <div class="col-12">
                 <div class="alert alert-info mt-2 tiny">
                   <i class="fas fa-info-circle me-2" aria-hidden="true"></i>
-                  <span class="alert-text">This form is not monitored 24/7 and cannot be used for emergencies.</span>
+                  <span class="alert-text">appointment_info_note</span>
                 </div>
               </div>
 
@@ -214,7 +256,7 @@
                   class="btn btn-primary btn-lg px-5 w-100"
                 >
                   <i class="fas fa-calendar-check me-2" aria-hidden="true"></i>
-                  Request appointment
+                  <span class="btn-text">appointment_submit_text</span>
                 </button>
               </div>
             </div>
@@ -226,49 +268,47 @@
       <div class="col-lg-5">
         <div class="booking-info-card p-4 p-lg-5 reveal-on-scroll">
           <h3 class="h5 fw-semibold mb-3">
-            Practical information
+            <span class="section-text">appointment_info_title</span>
           </h3>
 
           <div class="mb-3">
             <p class="fw-semibold mb-1 small text-uppercase letter-spacing-wide">
-              Availability
+              <span class="section-text">appointment_info_availability_label</span>
             </p>
             <p class="mb-0 text-muted tiny">
-              Mon – Fri · 09:00 – 18:00  
-              <br>Some evening sessions are available upon request.
+              <span class="section-text">appointment_info_availability_text</span>
             </p>
           </div>
 
           <div class="mb-3">
             <p class="fw-semibold mb-1 small text-uppercase letter-spacing-wide">
-              Location
+              <span class="section-text">appointment_info_location_label</span>
             </p>
             <p class="mb-0 text-muted tiny">
-              Studio in Tashkent (add exact address)  
-              <br>Online sessions via Zoom / Google Meet.
+              <span class="section-text">appointment_info_location_text</span>
             </p>
           </div>
 
           <div class="mb-3">
             <p class="fw-semibold mb-1 small text-uppercase letter-spacing-wide">
-              Languages
+              <span class="section-text">appointment_info_languages_label</span>
             </p>
             <p class="mb-0 text-muted tiny">
-              Uzbek · Russian 
+              <span class="section-text">appointment_info_languages_text</span>
             </p>
           </div>
 
           <div class="booking-note mt-4 pt-3">
             <p class="tiny text-muted mb-1">
-              Please note
+              <span class="section-text">appointment_info_please_note_label</span>
             </p>
             <p class="mb-0 tiny text-muted">
-              If you don’t receive a confirmation within a reasonable time, please check your spam folder
-              or contact the studio directly by phone.
+              <span class="section-text">appointment_info_please_note_text</span>
             </p>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>

@@ -530,12 +530,44 @@ def doctor_logout():
 def media():
     lang = get_language()
 
-    db = get_db()
-    content = db.execute(
-        "SELECT * FROM magazines ORDER BY created_at DESC"
-    ).fetchall()
+    # Get search query and type filter from URL
+    q = request.args.get("q", "").strip()
+    filter_type = request.args.get("type", "").strip().lower()
 
-    return render_template("media.html", content=content, lang=lang)
+    db = get_db()
+
+    # Base query
+    sql = "SELECT * FROM magazines WHERE 1=1"
+    params = []
+
+    # Optional type filter
+    if filter_type in ["podcast", "magazine", "radio", "video"]:
+        sql += " AND type = ?"
+        params.append(filter_type)
+
+    # Optional text search across all languages
+    if q:
+        like = f"%{q}%"
+        sql += """
+            AND (
+                title_en LIKE ? OR title_uz LIKE ? OR title_ru LIKE ?
+                OR description_en LIKE ? OR description_uz LIKE ? OR description_ru LIKE ?
+            )
+        """
+        params.extend([like] * 6)
+
+    sql += " ORDER BY created_at DESC"
+
+    content = db.execute(sql, params).fetchall()
+
+    return render_template(
+        "media.html",
+        content=content,
+        lang=lang,
+        q=q,
+        filter_type=filter_type,
+    )
+
 @app.route('/doctor/appointment/<int:appointment_id>/status', methods=['POST'])
 @login_required
 def update_appointment_status(appointment_id):

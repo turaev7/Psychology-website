@@ -131,7 +131,7 @@ body {
   width: 320px;
   max-width: 100%;
   aspect-ratio: 4 / 5;
-  background-image: url("../images/dr-guli.png"); /* same image */
+  background-image: url("../images/Dr_guli.jpg");
   background-size: cover;
   background-position: center top;
   border-radius: 56% 44% 52% 48% / 64% 56% 44% 36%;
@@ -715,9 +715,10 @@ body {
 }
 
 .media-search-wrapper {
-  min-width: 260px;
+  min-width: 250px;
 }
 
+/* Rounded pill search */
 .media-search-input {
   border-radius: 999px;
   background-color: rgba(246, 242, 236, 0.9);
@@ -725,15 +726,25 @@ body {
   overflow: hidden;
 }
 
-.media-search-input .input-group-text {
-  background: transparent;
-  color: var(--color-text-muted);
-}
-
+.media-search-input .input-group-text,
 .media-search-input .form-control {
+  border: 0;
+  border-radius: 0;
   background: transparent;
   box-shadow: none;
 }
+
+/* Remove blue default Bootstrap focus and replace with soft outline */
+.media-search-input .form-control:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.media-search-input:focus-within {
+  border-color: var(--color-deep);
+  box-shadow: 0 0 0 2px rgba(31, 49, 48, 0.18);
+}
+
 
 /* Media cards */
 
@@ -1115,3 +1126,340 @@ body {
     border-radius: 22px;
   }
 }
+/* ============================
+   PATIENT DASHBOARD
+   ============================ */
+
+.dashboard-hero--patient {
+  /* same background as others, but you can soften overlay later if you want */
+}
+
+.dash-avatar-frame--patient {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: var(--color-deep);
+}
+
+.dash-avatar-frame--patient i {
+  color: var(--color-deep);
+}
+
+/* Slightly softer dots for patient timeline */
+
+.dash-timeline--patient::before {
+  background: linear-gradient(
+    to bottom,
+    rgba(31, 49, 48, 0.4),
+    rgba(31, 49, 48, 0.08)
+  );
+}
+
+.dash-timeline-dot--patient {
+  background-color: #ffffff;
+  border: 2px solid var(--color-deep);
+  box-shadow: 0 0 0 4px rgba(31, 49, 48, 0.12);
+}
+/* ============================
+   MEDIA PAGE – COMPACT GRID
+   ============================ */
+
+.media-grid .media-card--compact {
+  padding: 1.1rem 1.2rem;
+  border-radius: 18px;
+  border: 1px solid rgba(196, 178, 154, 0.6);
+  box-shadow: 0 12px 30px rgba(25, 32, 31, 0.14);
+  background-color: var(--color-surface);
+}
+
+.media-grid .media-title {
+  font-size: 0.98rem;
+  line-height: 1.35;
+}
+
+.media-grid .media-description {
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.media-grid .btn-xs {
+  font-size: 0.75rem;
+  line-height: 1.1;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+/* Small circle icon on the left */
+.media-icon-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top left, #efe1cf 0, transparent 60%),
+              radial-gradient(circle at bottom right, #dde4da 0, transparent 60%);
+  font-size: 1rem;
+  color: var(--color-deep);
+}
+
+/* Make badges lighter so tiles feel airy */
+.media-badge {
+  border-radius: 999px;
+  padding: 0.1rem 0.55rem;
+  font-size: 0.7rem;
+}
+
+/* Responsive: 2 per row becomes 1 on very small screens */
+@media (max-width: 575.98px) {
+  .media-grid .media-card--compact {
+    padding: 1rem;
+  }
+}
+
+/* Ensure the card behaves as a vertical flexbox */
+.media-card--compact {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Positioning the bottom-right button cleanly */
+.media-card--compact .btn-xs {
+  align-self: flex-end;
+  margin-top: auto;
+}
+/* FULLSCREEN FLEX CENTERING FOR LOGIN PAGES */
+/* Center login box */
+.auth-hero,
+.auth-hero--doctor {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.auth-center-wrapper {
+  width: 100%;
+  max-width: 450px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-card {
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+/* Password show/hide button */
+.password-wrapper {
+  position: relative;
+}
+
+.toggle-password-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 0;
+}
+
+.toggle-password-btn i {
+  font-size: 1.2rem;
+}
+
+.toggle-password-btn:hover i {
+  color: var(--color-deep);
+}
+
+.auth-hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* MEDIA ADMIN (DOCTOR) */
+.media-admin-shell {
+  position: relative;
+  z-index: 2;
+}
+
+.media-admin-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.3fr);
+  gap: 1.75rem;
+  align-items: flex-start;
+}
+
+@media (max-width: 991.98px) {
+  .media-admin-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Glassy cards */
+.glass-card {
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+}
+
+/* Form side */
+.media-admin-form {
+  padding: 1.75rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .media-admin-form {
+    padding: 2rem 1.75rem;
+  }
+}
+
+/* Type chips */
+.media-type-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(196, 178, 154, 0.6);
+  background: rgba(250, 247, 242, 0.7);
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.media-type-chip input {
+  display: none;
+}
+
+.media-type-chip .chip-label {
+  white-space: nowrap;
+}
+
+.media-type-chip:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+}
+
+.media-type-chip input:checked + .chip-label,
+.media-type-chip input:checked ~ .chip-label {
+  font-weight: 600;
+}
+
+.media-type-chip input:checked ~ .chip-label,
+.media-type-chip input:checked ~ span {
+  color: #fff;
+}
+
+.media-type-chip input:checked ~ .chip-label {
+  position: relative;
+}
+
+.media-type-chip input:checked ~ .chip-label::before {
+  content: "";
+  position: absolute;
+  inset: -0.2rem -0.9rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #305f5a, #1f3130);
+  z-index: -1;
+}
+
+/* List side */
+.media-admin-list {
+  padding: 1.75rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .media-admin-list {
+    padding: 2rem 1.75rem;
+  }
+}
+
+.media-admin-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  max-height: 550px;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.media-admin-items::-webkit-scrollbar {
+  width: 6px;
+}
+
+.media-admin-items::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.7);
+}
+
+/* Single media item card */
+.media-admin-item {
+  border-radius: 1.1rem;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  padding: 0.9rem 1rem 0.75rem;
+  background: #fdfbf8;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.media-admin-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.media-admin-item-body {
+  padding-top: 0.1rem;
+}
+
+.media-admin-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.1rem;
+}
+
+.media-admin-item-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.15rem;
+}
+
+/* Extra small buttons */
+.btn.btn-xs {
+  --bs-btn-padding-y: 0.18rem;
+  --bs-btn-padding-x: 0.6rem;
+  --bs-btn-font-size: 0.72rem;
+}
+
+/* Scroll reveal animation */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.scroll-reveal:nth-child(1) { transition-delay: 0.05s; }
+.scroll-reveal:nth-child(2) { transition-delay: 0.15s; }
+.scroll-reveal:nth-child(3) { transition-delay: 0.25s; }
+.scroll-reveal:nth-child(4) { transition-delay: 0.40s; }

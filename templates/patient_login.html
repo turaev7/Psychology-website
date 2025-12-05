@@ -1,102 +1,218 @@
 {% extends "base.html" %}
 
-{% block title %}Patient Login - Dr. Guli Bekmurodovna{% endblock %}
-
 {% block content %}
 
-<section class="auth-hero d-flex align-items-center">
+<section class="auth-hero">
   <div class="auth-hero-overlay"></div>
-  <div class="container position-relative">
-    <div class="row justify-content-center">
-      <div class="col-lg-5">
-        <div class="auth-card reveal-on-scroll">
-          <div class="auth-card-header text-center mb-4">
-            <p class="section-label mb-2">
-              Patient area
-            </p>
-            <h1 class="h4 fw-semibold mb-2">
-              Log in to your space
-            </h1>
-            <p class="text-muted tiny mb-0">
-              View your upcoming appointments, notes and messages from Dr. Guli.
-            </p>
+
+  <div class="auth-center-wrapper">
+    <div class="auth-card scroll-reveal">
+      <!-- Header -->
+      <div class="auth-card-header mb-4 ">
+        <p class="tiny text-uppercase letter-spacing-wide text-muted mb-1 media-text"
+           data-key="patient_portal">
+          Patient Portal
+        </p>
+        <h1 class="h3 fw-bold mb-2 media-text" data-key="welcome_back">
+          Welcome Back
+        </h1>
+        <p class="text-muted small mb-0 media-text" data-key="register_info">
+          Registered patients can view their appointment history and read session notes from Dr. Guli.
+        </p>
+      </div>
+
+      <!-- Toggle buttons: Existing vs New -->
+      <div class="btn-group mb-4 w-100" role="group">
+        <button type="button"
+                class="btn btn-sm btn-outline-secondary active"
+                data-auth-toggle="existing">
+          <span class="media-text" data-key="existing_patient">Existing Patient</span>
+        </button>
+        <button type="button"
+                class="btn btn-sm btn-outline-secondary"
+                data-auth-toggle="new">
+          <span class="media-text" data-key="new_patient">New Patient Registration</span>
+        </button>
+      </div>
+
+      <!-- EXISTING PATIENT LOGIN -->
+      <div data-auth-panel="existing">
+        <form method="post"
+              action="{{ url_for('patient_login', lang=lang) }}"
+              novalidate>
+          <input type="hidden" name="action" value="login">
+
+          <div class="mb-3">
+            <label for="loginEmail" class="form-label small media-text" data-key="email">
+              Email
+            </label>
+            <input
+              type="email"
+              class="form-control auth-input"
+              id="loginEmail"
+              name="email"
+              required
+              autocomplete="email"
+              placeholder="...@gmail.com"
+            >
           </div>
 
-          <!-- LOGIN FORM -->
-          <form
-            action="{{ url_for('patient_login', lang=lang) }}"
-            method="post"
-            novalidate
-          >
-            {# If you use CSRF: {{ form.hidden_tag() }} #}
-
-            <div class="mb-3">
-              <label for="email" class="form-label tiny text-uppercase letter-spacing-wide">
-                Email
-              </label>
-              <input
-                type="email"
-                class="form-control auth-input"
-                id="email"
-                name="email"
-                placeholder="you@example.com"
-                required
-              >
-            </div>
-
-            <div class="mb-3">
-              <div class="d-flex justify-content-between align-items-center mb-1">
-                <label for="password" class="form-label tiny text-uppercase letter-spacing-wide mb-0">
-                  Password
-                </label>
-                <a href="#" class="tiny text-muted text-decoration-none">
-                  Forgot?
-                </a>
-              </div>
+          <div class="mb-3">
+            <label for="loginPassword" class="form-label small media-text" data-key="password">
+              Password
+            </label>
+            <div class="password-wrapper">
               <input
                 type="password"
-                class="form-control auth-input"
-                id="password"
+                class="form-control auth-input password-field"
+                id="loginPassword"
                 name="password"
-                placeholder="••••••••"
                 required
+                autocomplete="current-password"
+                placeholder="••••••••"
               >
-            </div>
-
-            <div class="mb-3 form-check tiny text-muted">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                id="remember"
-                name="remember"
-              >
-              <label class="form-check-label" for="remember">
-                Keep me signed in on this device
-              </label>
-            </div>
-
-            <div class="d-grid mb-3">
-              <button type="submit" class="btn btn-primary btn-lg rounded-pill">
-                <i class="fas fa-sign-in-alt me-2" aria-hidden="true"></i>
-                Log in
+              <button type="button" class="toggle-password-btn" tabindex="-1">
+                <i class="bi bi-eye"></i>
               </button>
             </div>
-          </form>
-
-          <div class="auth-footer text-center tiny text-muted">
-            <p class="mb-0">
-              Having trouble logging in? Contact the studio directly for support.
-            </p>
           </div>
-        </div>
 
-        <p class="auth-legal tiny text-muted text-center mt-3">
-          This private area is for current patients only.  
-          Data is processed confidentially in line with professional and legal standards.
+          <div class="d-grid gap-2 mt-3">
+            <button type="submit" class="btn btn-primary">
+              <span class="media-text" data-key="login">Login</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- NEW PATIENT REGISTRATION -->
+      <div data-auth-panel="new" class="d-none">
+        <form method="post"
+              action="{{ url_for('patient_login', lang=lang) }}"
+              novalidate>
+          <input type="hidden" name="action" value="register">
+
+          <div class="mb-3">
+            <label for="regName" class="form-label small media-text" data-key="name">
+              Full Name
+            </label>
+            <input
+              type="text"
+              class="form-control auth-input"
+              id="regName"
+              name="name"
+              required
+              autocomplete="name"
+            >
+          </div>
+
+          <div class="mb-3">
+            <label for="regEmail" class="form-label small media-text" data-key="email">
+              Email
+            </label>
+            <input
+              type="email"
+              class="form-control auth-input"
+              id="regEmail"
+              name="email"
+              required
+              autocomplete="email"
+              placeholder="...@gmail.com"
+            >
+          </div>
+
+          <div class="mb-3">
+            <label for="regPhone" class="form-label small media-text" data-key="phone">
+              Phone
+            </label>
+            <input
+              type="text"
+              class="form-control auth-input"
+              id="regPhone"
+              name="phone"
+              autocomplete="tel"
+              placeholder="+998 ..."
+            >
+          </div>
+
+          <div class="mb-3">
+            <label for="regPassword" class="form-label small media-text" data-key="password">
+              Password
+            </label>
+            <div class="password-wrapper">
+              <input
+                type="password"
+                class="form-control auth-input password-field"
+                id="regPassword"
+                name="password"
+                required
+                autocomplete="new-password"
+              >
+              <button type="button" class="toggle-password-btn" tabindex="-1">
+                <i class="bi bi-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="d-grid gap-2 mt-3">
+            <button type="submit" class="btn btn-primary">
+              <span class="media-text" data-key="register">Register</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Footer text -->
+      <div class="auth-footer mt-4">
+        <p class="tiny text-muted mb-1">
+          <span class="media-text" data-key="note">
+            Note: Registration is required to view session notes from Dr. Guli. You can always book an appointment without registering.
+          </span>
         </p>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Toggle between existing / new patient panels
+    const toggles = document.querySelectorAll("[data-auth-toggle]");
+    const panels = document.querySelectorAll("[data-auth-panel]");
+
+    toggles.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.dataset.authToggle;
+
+        toggles.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        panels.forEach(panel => {
+          panel.classList.toggle("d-none", panel.dataset.authPanel !== target);
+        });
+      });
+    });
+
+    // Show/hide password buttons
+    document.querySelectorAll(".toggle-password-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const input = btn.parentElement.querySelector(".password-field");
+        const icon = btn.querySelector("i");
+
+        if (!input) return;
+
+        if (input.type === "password") {
+          input.type = "text";
+          icon.classList.remove("bi-eye");
+          icon.classList.add("bi-eye-slash");
+        } else {
+          input.type = "password";
+          icon.classList.remove("bi-eye-slash");
+          icon.classList.add("bi-eye");
+        }
+      });
+    });
+  });
+</script>
 
 {% endblock %}

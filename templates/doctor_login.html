@@ -1,101 +1,88 @@
 {% extends "base.html" %}
 
-{% block title %}Doctor Login - Dr. Guli Bekmurodovna{% endblock %}
-
 {% block content %}
 
-<section class="auth-hero auth-hero--doctor d-flex align-items-center">
+<section class="auth-hero auth-hero--doctor">
   <div class="auth-hero-overlay"></div>
-  <div class="container position-relative">
-    <div class="row justify-content-center">
-      <div class="col-lg-5">
-        <div class="auth-card reveal-on-scroll">
-          <div class="auth-card-header text-center mb-4">
-            <p class="section-label mb-2">
-              Doctor portal
-            </p>
-            <h1 class="h4 fw-semibold mb-2">
-              Log in as practitioner
-            </h1>
-            <p class="text-muted tiny mb-0">
-              Access your dashboard, patient notes and media uploads securely.
-            </p>
-          </div>
 
-          <!-- LOGIN FORM -->
-          <form
+  <div class="auth-center-wrapper">
+    <div class="auth-card scroll-reveal">
+      <!-- Header -->
+      <div class="auth-card-header mb-4 scroll-reveal">
+        <p class="tiny text-uppercase letter-spacing-wide text-muted mb-1 media-text"
+           data-key="doctor_dashboard">
+          Doctor Dashboard
+        </p>
+        <h1 class="h3 fw-bold mb-2 media-text scroll-reveal" data-key="doctor_login_title">
+          Doctor Portal Access
+        </h1>
+        <p class="text-muted small mb-0 scroll-reveal">
+          Dr.Guli
+        </p>
+      </div>
+
+      <!-- Doctor login form -->
+      <form method="post"
             action="{{ url_for('doctor_login', lang=lang) }}"
-            method="post"
-            novalidate
-          >
-            {# If you use CSRF: {{ form.hidden_tag() }} #}
-
-            <div class="mb-3">
-              <label for="doctor_email" class="form-label tiny text-uppercase letter-spacing-wide">
-                Email
-              </label>
-              <input
-                type="email"
-                class="form-control auth-input"
-                id="doctor_email"
-                name="email"
-                placeholder="you@clinic.com"
-                required
-              >
-            </div>
-
-            <div class="mb-3">
-              <div class="d-flex justify-content-between align-items-center mb-1">
-                <label for="doctor_password" class="form-label tiny text-uppercase letter-spacing-wide mb-0">
-                  Password
-                </label>
-                <a href="#" class="tiny text-muted text-decoration-none">
-                  Forgot?
-                </a>
-              </div>
-              <input
-                type="password"
-                class="form-control auth-input"
-                id="doctor_password"
-                name="password"
-                placeholder="••••••••"
-                required
-              >
-            </div>
-
-            <div class="mb-3 form-check tiny text-muted">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                id="doctor_remember"
-                name="remember"
-              >
-              <label class="form-check-label" for="doctor_remember">
-                Keep me signed in on this device
-              </label>
-            </div>
-
-            <div class="d-grid mb-3">
-              <button type="submit" class="btn btn-primary btn-lg rounded-pill">
-                <i class="fas fa-sign-in-alt me-2" aria-hidden="true"></i>
-                Log in
-              </button>
-            </div>
-          </form>
-
-          <div class="auth-footer text-center tiny text-muted">
-            <p class="mb-0">
-              For security reasons, log out after use on shared devices.
-            </p>
+            novalidate>
+        <div class="mb-3 scroll-reveal">
+          <label for="doctorPassword" class="form-label small media-text" data-key="password">
+            Password
+          </label>
+          <div class="password-wrapper">
+            <input
+              type="password"
+              class="form-control auth-input password-field"
+              id="doctorPassword"
+              name="password"
+              required
+              autocomplete="current-password"
+              placeholder="••••••••"
+            >
+            <button type="button" class="toggle-password-btn" tabindex="-1">
+              <i class="bi bi-eye"></i>
+            </button>
           </div>
         </div>
 
-        <p class="auth-legal tiny text-muted text-center mt-3">
-          Unauthorized access is prohibited. Actions in this portal may be logged for security.
+        <div class="d-grid gap-2 mt-3 scroll-reveal">
+          <button type="submit" class="btn btn-primary">
+            <span class="media-text" data-key="login">Login</span>
+          </button>
+        </div>
+      </form>
+
+      <div class="auth-footer mt-4 scroll-reveal">
+        <p class="tiny text-muted mb-1">
+          This portal is reserved for the psychologist only.
         </p>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Show/hide password buttons
+    document.querySelectorAll(".toggle-password-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const input = btn.parentElement.querySelector(".password-field");
+        const icon = btn.querySelector("i");
+
+        if (!input) return;
+
+        if (input.type === "password") {
+          input.type = "text";
+          icon.classList.remove("bi-eye");
+          icon.classList.add("bi-eye-slash");
+        } else {
+          input.type = "password";
+          icon.classList.remove("bi-eye-slash");
+          icon.classList.add("bi-eye");
+        }
+      });
+    });
+  });
+</script>
 
 {% endblock %}

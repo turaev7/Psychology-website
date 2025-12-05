@@ -1,269 +1,255 @@
 {% extends "base.html" %}
 
-{% block title %}Media - Dr. Guli Bekmurodovna{% endblock %}
-
 {% block content %}
 
-<!-- PAGE HERO: MEDIA -->
-<section class="page-hero page-hero--media d-flex align-items-center">
+<!-- MEDIA HERO -->
+<div class="page-hero page-hero--media position-relative">
   <div class="page-hero-overlay"></div>
   <div class="container position-relative">
     <div class="row">
-      <div class="col-lg-9">
-        <div class="page-hero-content reveal-on-scroll">
-          <p class="section-label mb-2">
-            Media &amp; Resources
+      <div class="col-lg-8 scroll-reveal">
+        <div class="page-hero-content py-5">
+          <p class="text-uppercase tiny letter-spacing-wide text-muted mb-2 media-text"
+             data-key="media">
+            Media
           </p>
-          <h1 class="h2 h1-lg fw-semibold mb-3">
-            Conversations about mental health, healing &amp; growth
+          <h1 class="h1-lg fw-bold mb-3 media-text" data-key="media_title">
+            Magazines, Podcasts &amp; Media
           </h1>
-          <p class="text-muted mb-0">
-            Explore podcasts, videos and articles where Dr. Guli shares thoughts on stress,
-            relationships, trauma, self-esteem and everyday emotional life.
+          <p class="lead text-muted mb-0 media-text" data-key="media_intro">
+            Explore podcasts, radio shows, videos and articles where Dr. Guli shares her therapeutic insights.
           </p>
         </div>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- FILTERS + SEARCH -->
-<section class="py-4 section-soft">
-  <div class="container">
-    <div class="media-filters d-flex flex-column flex-lg-row align-items-lg-center gap-3 reveal-on-scroll">
-      <div class="media-filter-chips d-flex flex-wrap gap-2">
-        <button class="media-chip active" type="button" data-filter="all">
-          All
-        </button>
-        <button class="media-chip" type="button" data-filter="podcast">
-          Podcasts
-        </button>
-        <button class="media-chip" type="button" data-filter="video">
-          Videos
-        </button>
-        <button class="media-chip" type="button" data-filter="article">
-          Articles
-        </button>
-      </div>
+<section class="py-5 py-lg-5">
+  <div class="container media-page">
 
-      <div class="ms-lg-auto media-search-wrapper">
-        <div class="input-group media-search-input">
-          <span class="input-group-text border-0">
-            <i class="fas fa-search" aria-hidden="true"></i>
-          </span>
-          <input
-            type="text"
-            class="form-control border-0"
-            placeholder="Search by topic, title or keyword"
-            id="media-search"
-          >
+    {% set current_q = q or "" %}
+
+    <!-- FILTERS + SEARCH -->
+    <div class="media-filters mb-4 p-3 p-md-4 rounded-4 bg-white shadow-sm border  scroll-reveal">
+      <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3  scroll-reveal">
+
+        <!-- Filter chips: BUTTONS (no reload) -->
+        <div class="d-flex flex-wrap gap-2">
+          <button type="button"
+                  class="btn btn-sm btn-outline-secondary px-3 media-chip media-text active"
+                  data-filter="all"
+                  data-key="media_filter_all">
+            All
+          </button>
+          <button type="button"
+                  class="btn btn-sm btn-outline-secondary px-3 media-chip media-text"
+                  data-filter="podcast"
+                  data-key="media_filter_podcast">
+            Podcasts
+          </button>
+          <button type="button"
+                  class="btn btn-sm btn-outline-secondary px-3 media-chip media-text"
+                  data-filter="magazine"
+                  data-key="media_filter_magazine">
+            Articles &amp; Magazines
+          </button>
+          <button type="button"
+                  class="btn btn-sm btn-outline-secondary px-3 media-chip media-text"
+                  data-filter="radio"
+                  data-key="media_filter_radio">
+            Radio Shows
+          </button>
+          <button type="button"
+                  class="btn btn-sm btn-outline-secondary px-3 media-chip media-text"
+                  data-filter="video"
+                  data-key="media_filter_video">
+            Videos
+          </button>
         </div>
+
+        <!-- Search: still backend (GET with ?q=...) -->
+        <div class="media-search-wrapper flex-grow-1 flex-md-grow-0" style="max-width: 260px;">
+          <form class="media-search-form">
+            <div class="media-search-input input-group input-group-sm">
+              <span class="input-group-text">
+                <i class="bi bi-search"></i>
+              </span>
+              <input
+                type="text"
+                id="mediaSearch"
+                class="form-control"
+                placeholder="Search podcasts, articles or shows..."
+                data-key="media_search_placeholder"
+              >
+            </div>
+          </form>
+        </div>
+
       </div>
+    </div>
+
+    <!-- MEDIA GRID -->
+    <div id="mediaList" class="media-grid">
+      {% if content and content|length > 0 %}
+
+        {% set title_field = "title_" + lang %}
+        {% set desc_field  = "description_" + lang %}
+
+        <div class="row g-3 g-md-4  scroll-reveal">
+          {% for item in content %}
+            {% set item_title = item[title_field] if item[title_field] else item["title_en"] %}
+            {% set item_desc  = item[desc_field] if item[desc_field] else item["description_en"] %}
+            {% set media_type = item["type"]|lower %}
+            {% if media_type not in ["podcast", "magazine", "radio", "video"] %}
+              {% set media_type = "magazine" %}
+            {% endif %}
+
+            <!-- Column is the filterable unit -->
+            <div class="col-sm-6 col-lg-4 media-item"
+                data-type="{{ media_type }}"
+                data-title="{{ (item_title or '')|lower }}"
+                data-desc="{{ (item_desc or '')|lower }}">
+
+              <article class="media-card media-card--compact h-100 d-flex flex-column">
+                <!-- Top: Icon + Badge -->
+                <div class="d-flex align-items-start justify-content-between mb-2">
+                  <div class="media-icon-circle">
+                    {% if media_type == "podcast" %}
+                      <i class="bi bi-mic"></i>
+                    {% elif media_type == "radio" %}
+                      <i class="bi bi-broadcast-pin"></i>
+                    {% elif media_type == "video" %}
+                      <i class="bi bi-play-fill"></i>
+                    {% else %}
+                      <i class="bi bi-journal-text"></i>
+                    {% endif %}
+                  </div>
+                  <span class="media-badge
+                    {% if media_type == 'podcast' %}media-badge--podcast
+                    {% elif media_type == 'video' %}media-badge--video
+                    {% else %}media-badge--article{% endif %}">
+                    {% if media_type == "podcast" %}
+                      <span class="media-text tiny" data-key="podcast">Podcast</span>
+                    {% elif media_type == "radio" %}
+                      <span class="media-text tiny" data-key="radio">Radio</span>
+                    {% elif media_type == "video" %}
+                      <span class="media-text tiny" data-key="video">Video</span>
+                    {% else %}
+                      <span class="media-text tiny" data-key="magazine">Magazine</span>
+                    {% endif %}
+                  </span>
+                </div>
+
+                <!-- Title & Description -->
+                <h3 class="media-title h6 fw-semibold mb-2">
+                  {{ item_title }}
+                </h3>
+
+                {% if item_desc %}
+                  <p class="media-description tiny text-muted mb-3">
+                    {{ item_desc }}
+                  </p>
+                {% endif %}
+
+                <!-- Spacer to push button down -->
+                <div class="flex-grow-1"></div>
+
+                <!-- Bottom-right button -->
+                <div class="d-flex justify-content-end mt-2">
+                  {% if item["link"] %}
+                    <a href="{{ item['link'] }}"
+                       target="_blank"
+                       rel="noopener"
+                       class="btn btn-xs btn-outline-dark px-3 py-1 media-text"
+                       data-key="view">
+                      Open
+                    </a>
+                  {% else %}
+                    <span class="tiny text-muted media-text" data-key="no_link">
+                      No link
+                    </span>
+                  {% endif %}
+                </div>
+              </article>
+            </div>
+          {% endfor %}
+        </div>
+
+      {% else %}
+        <div class="text-center py-5">
+          <p class="text-muted mb-0 media-text" data-key="media_no_items">
+            No media items yet.
+          </p>
+        </div>
+      {% endif %}
     </div>
   </div>
 </section>
 
-<!-- MEDIA GRID -->
-<section class="py-5">
-  <div class="container">
-    <div class="row g-4" id="media-grid">
+<!-- JS: smooth in-page filtering by type -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const filterButtons = document.querySelectorAll(".media-chip");
+    const items = document.querySelectorAll(".media-item");
+    const searchInput = document.getElementById("mediaSearch");
+    const searchForm = document.querySelector(".media-search-form");
 
-      <!-- Example MEDIA CARD 1 -->
-      <div class="col-md-6 col-lg-4 media-item" data-type="podcast" data-title="burnout relationships work">
-        <article class="media-card h-100 reveal-on-scroll">
-          <div class="media-thumb media-thumb--audio">
-            <div class="media-thumb-inner">
-              <button class="media-play-btn" type="button">
-                <i class="fas fa-play" aria-hidden="true"></i>
-              </button>
-            </div>
-          </div>
-          <div class="media-body p-3 p-lg-4">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="media-badge media-badge--podcast">
-                Podcast
-              </span>
-              <span class="media-meta tiny text-muted">
-                38 min
-              </span>
-            </div>
-            <h2 class="media-title h5 mb-2">
-              When work, family &amp; emotions collide
-            </h2>
-            <p class="media-description text-muted tiny mb-3">
-              A conversation about balancing responsibilities, recognizing burnout and learning
-              to set gentle but firm boundaries.
-            </p>
-            <p class="media-source tiny text-muted mb-0">
-              Featured on: “Mindful Mornings”
-            </p>
-          </div>
-        </article>
-      </div>
+    let activeFilter = "all";
+    let searchTerm = "";
 
-      <!-- Example MEDIA CARD 2 -->
-      <div class="col-md-6 col-lg-4 media-item" data-type="video" data-title="anxiety panic breathing">
-        <article class="media-card h-100 reveal-on-scroll">
-          <div class="media-thumb media-thumb--video">
-            <div class="media-thumb-inner">
-              <button class="media-play-btn" type="button">
-                <i class="fas fa-play" aria-hidden="true"></i>
-              </button>
-            </div>
-          </div>
-          <div class="media-body p-3 p-lg-4">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="media-badge media-badge--video">
-                Video
-              </span>
-              <span class="media-meta tiny text-muted">
-                12 min
-              </span>
-            </div>
-            <h2 class="media-title h5 mb-2">
-              Calming the nervous system during anxiety
-            </h2>
-            <p class="media-description text-muted tiny mb-3">
-              Simple somatic tools and breathing practices to gently bring the body back to safety
-              during moments of overwhelm.
-            </p>
-            <p class="media-source tiny text-muted mb-0">
-              Recorded for: “Evening Reflection” series
-            </p>
-          </div>
-        </article>
-      </div>
+    function applyFilters() {
+      const term = searchTerm.toLowerCase();
 
-      <!-- Example MEDIA CARD 3 -->
-      <div class="col-md-6 col-lg-4 media-item" data-type="article" data-title="trauma childhood inner child">
-        <article class="media-card h-100 reveal-on-scroll">
-          <div class="media-thumb media-thumb--article">
-            <div class="media-thumb-inner">
-              <i class="fas fa-pen-nib" aria-hidden="true"></i>
-            </div>
-          </div>
-          <div class="media-body p-3 p-lg-4">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="media-badge media-badge--article">
-                Article
-              </span>
-              <span class="media-meta tiny text-muted">
-                7 min read
-              </span>
-            </div>
-            <h2 class="media-title h5 mb-2">
-              Meeting your younger self with compassion
-            </h2>
-            <p class="media-description text-muted tiny mb-3">
-              On understanding childhood wounds, inner child work and how tenderness
-              can support deep healing in the present.
-            </p>
-            <p class="media-source tiny text-muted mb-0">
-              Published in: “Everyday Psychology”
-            </p>
-          </div>
-        </article>
-      </div>
+      items.forEach(item => {
+        const type = (item.dataset.type || "").toLowerCase();
+        const title = (item.dataset.title || "");
+        const desc = (item.dataset.desc || "");
 
-      <!-- Example MEDIA CARD 4 -->
-      <div class="col-md-6 col-lg-4 media-item" data-type="podcast" data-title="relationship couples communication">
-        <article class="media-card h-100 reveal-on-scroll">
-          <div class="media-thumb media-thumb--audio">
-            <div class="media-thumb-inner">
-              <button class="media-play-btn" type="button">
-                <i class="fas fa-play" aria-hidden="true"></i>
-              </button>
-            </div>
-          </div>
-          <div class="media-body p-3 p-lg-4">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="media-badge media-badge--podcast">
-                Podcast
-              </span>
-              <span class="media-meta tiny text-muted">
-                42 min
-              </span>
-            </div>
-            <h2 class="media-title h5 mb-2">
-              Learning to speak from the heart
-            </h2>
-            <p class="media-description text-muted tiny mb-3">
-              Exploring how couples can communicate needs, fears and hopes in a way that
-              feels safe and truly heard.
-            </p>
-            <p class="media-source tiny text-muted mb-0">
-              Featured on: “Healing in Connection”
-            </p>
-          </div>
-        </article>
-      </div>
+        const matchesType =
+          activeFilter === "all" || type === activeFilter;
 
-      <!-- Example MEDIA CARD 5 -->
-      <div class="col-md-6 col-lg-4 media-item" data-type="video" data-title="self-esteem perfectionism shame">
-        <article class="media-card h-100 reveal-on-scroll">
-          <div class="media-thumb media-thumb--video">
-            <div class="media-thumb-inner">
-              <button class="media-play-btn" type="button">
-                <i class="fas fa-play" aria-hidden="true"></i>
-              </button>
-            </div>
-          </div>
-          <div class="media-body p-3 p-lg-4">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="media-badge media-badge--video">
-                Video
-              </span>
-              <span class="media-meta tiny text-muted">
-                16 min
-              </span>
-            </div>
-            <h2 class="media-title h5 mb-2">
-              Softening perfectionism &amp; inner criticism
-            </h2>
-            <p class="media-description text-muted tiny mb-3">
-              How to notice the inner critic, understand what it protects and slowly
-              develop a kinder inner voice.
-            </p>
-            <p class="media-source tiny text-muted mb-0">
-              Recorded for: “Gentle Growth” channel
-            </p>
-          </div>
-        </article>
-      </div>
+        const matchesSearch =
+          !term ||
+          title.includes(term) ||
+          desc.includes(term);
 
-      <!-- Example MEDIA CARD 6 -->
-      <div class="col-md-6 col-lg-4 media-item" data-type="article" data-title="grief loss mourning">
-        <article class="media-card h-100 reveal-on-scroll">
-          <div class="media-thumb media-thumb--article">
-            <div class="media-thumb-inner">
-              <i class="fas fa-pen-nib" aria-hidden="true"></i>
-            </div>
-          </div>
-          <div class="media-body p-3 p-lg-4">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="media-badge media-badge--article">
-                Article
-              </span>
-              <span class="media-meta tiny text-muted">
-                9 min read
-              </span>
-            </div>
-            <h2 class="media-title h5 mb-2">
-              Grief as a tender, living process
-            </h2>
-            <p class="media-description text-muted tiny mb-3">
-              A gentle exploration of how grief moves in waves and how we can honour loss
-              without rushing ourselves.
-            </p>
-            <p class="media-source tiny text-muted mb-0">
-              Published in: “Soulful Living”
-            </p>
-          </div>
-        </article>
-      </div>
+        const show = matchesType && matchesSearch;
+        item.style.display = show ? "" : "none";
+      });
+    }
 
-    </div>
-  </div>
-</section>
+    // Type filter (chips)
+    filterButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        filterButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        activeFilter = (btn.dataset.filter || "all").toLowerCase();
+        applyFilters();
+      });
+    });
+
+    // Live search while typing
+    if (searchInput) {
+      searchInput.addEventListener("input", (e) => {
+        searchTerm = e.target.value.trim().toLowerCase();
+        applyFilters();
+      });
+    }
+
+    // Prevent enter from reloading the page
+    if (searchForm) {
+      searchForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+      });
+    }
+
+    // Initial state
+    applyFilters();
+  });
+</script>
+
+
 
 {% endblock %}

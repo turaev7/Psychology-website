@@ -3,73 +3,231 @@
 {% block title %}My Account - Dr. Guli Bekmurodovna{% endblock %}
 
 {% block content %}
-<div class="page-header">
-    <div class="container">
-        <h1 class="display-5">
-            <span class="page-title">welcome_back</span>, {{ current_user.name }}
-        </h1>
-    </div>
-</div>
 
-<section class="py-5">
-    <div class="container">
-        <h3 class="mb-4">
-            <span class="dashboard-text">appointments</span>
-        </h3>
-        
-        {% if appointments %}
-            <div class="row">
-                {% for appointment in appointments %}
-                <div class="col-lg-6 mb-4">
-                    <div class="appointment-card p-4 h-100">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <div>
-                                <h5 class="mb-1">
-                                    <i class="fas fa-calendar me-2" aria-hidden="true"></i>
-                                    {{ appointment["appointment_date"] }}
-                                </h5>
-                                <p class="mb-0">
-                                    <i class="fas fa-clock me-2" aria-hidden="true"></i>
-                                    {{ appointment["appointment_time"] }}
-                                </p>
-                            </div>
-                            <span class="badge bg-{{ 'success' if appointment['status'] == 'scheduled' else 'secondary' }}">
-                                {{ appointment["status"] }}
-                            </span>
-                        </div>
-                        
-                        {% if appointment["notes"] %}
-                        <div class="session-notes mt-3">
-                            <h6 class="mb-2">
-                                <i class="fas fa-notes-medical me-2" aria-hidden="true"></i>
-                                <span class="notes-text">session_notes</span>
-                            </h6>
-                            <p class="mb-0">
-                                {{ appointment["notes"] }}
-                            </p>
-                        </div>
-                        {% else %}
-                        <div class="alert alert-info mb-0">
-                            <i class="fas fa-hourglass-half me-2" aria-hidden="true"></i>
-                            <span class="notes-text">no_notes</span>
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-                {% endfor %}
+{# --- Compute simple stats from appointments --- #}
+{% set stats = namespace(total=appointments|length, upcoming=0, completed=0) %}
+{% for a in appointments %}
+  {% if a["status"] == "scheduled" %}
+    {% set stats.upcoming = stats.upcoming + 1 %}
+  {% elif a["status"] == "completed" %}
+    {% set stats.completed = stats.completed + 1 %}
+  {% endif %}
+{% endfor %}
+
+<section class="dashboard-hero dashboard-hero--patient">
+  <div class="dashboard-hero-overlay"></div>
+
+  <div class="container">
+    <div class="row dashboard-layout align-items-center gy-4">
+      <!-- Left: Greeting -->
+      <div class="col-lg-6 scroll-reveal">
+        <div class="d-flex align-items-center gap-4 mb-4">
+          <div class="dash-avatar-frame dash-avatar-frame--patient bg-white">
+            <i class="bi bi-person-heart"></i>
+          </div>
+          <div>
+            <p class="text-uppercase small letter-spacing-wide text-muted mb-1">
+              <span class="dashboard-text">welcome_back</span>
+            </p>
+            <h1 class="h3 fw-semibold mb-1">
+              {{ current_user.name or '' }}
+            </h1>
+            <p class="mb-0 text-muted small">
+              {{ current_user.email }}
+            </p>
+          </div>
+        </div>
+
+        <p class="text-muted mb-3 small">
+          <span class="dashboard-text">patient_dashboard_intro</span>
+        </p>
+
+        <div class="d-flex flex-wrap gap-2">
+          <a href="{{ url_for('appointment', lang=lang) }}"
+             class="btn btn-primary btn-sm px-3 rounded-pill">
+            <span class="dashboard-text">book_one</span>
+          </a>
+          <a href="{{ url_for('media', lang=lang) }}"
+             class="btn btn-outline-secondary btn-sm px-3 rounded-pill">
+            <span class="dashboard-text">patient_dashboard_media_button</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Stats -->
+      <div class="col-lg-6 scroll-reveal">
+        <div class="row g-3">
+          <div class="col-6 col-md-4">
+            <div class="dash-stat-card h-100">
+              <p class="dash-stat-label mb-1">
+                <span class="dashboard-text">appointments</span>
+              </p>
+              <p class="dash-stat-value mb-0">{{ stats.total }}</p>
+              <p class="dash-stat-sub small text-muted">
+                <span class="dashboard-text">patient_dashboard_total_label</span>
+              </p>
             </div>
-        {% else %}
-            <div class="alert alert-info">
-                <i class="fas fa-info-circle me-2" aria-hidden="true"></i>
-                <span class="dashboard-text">no_appointments</span>
-                <a
-                    href="{{ url_for('appointment', lang=lang) }}"
-                    class="alert-link"
-                >
-                    <span class="dashboard-text">book_one</span>
-                </a>
+          </div>
+          <div class="col-6 col-md-4">
+            <div class="dash-stat-card h-100">
+              <p class="dash-stat-label mb-1">
+                <span class="dashboard-text">patient_dashboard_upcoming_label</span>
+              </p>
+              <p class="dash-stat-value mb-0">{{ stats.upcoming }}</p>
+              <p class="dash-stat-sub small text-muted">
+                <span class="dashboard-text">patient_dashboard_upcoming_sub</span>
+              </p>
             </div>
-        {% endif %}
+          </div>
+          <div class="col-6 col-md-4">
+            <div class="dash-stat-card h-100">
+              <p class="dash-stat-label mb-1">
+                <span class="dashboard-text">patient_dashboard_completed_label</span>
+              </p>
+              <p class="dash-stat-value mb-0">{{ stats.completed }}</p>
+              <p class="dash-stat-sub small text-muted">
+                <span class="dashboard-text">patient_dashboard_completed_sub</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
+
+<section class="py-4 py-lg-5">
+  <div class="container">
+    <div class="row g-4">
+      <!-- LEFT: Appointments timeline -->
+      <div class="col-lg-7">
+        <div class="dash-card p-3 p-md-4 h-100 scroll-reveal">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+              <p class="text-uppercase small letter-spacing-wide text-muted mb-1">
+                <span class="dashboard-text">appointments</span>
+              </p>
+              <h2 class="h5 mb-0">
+                <span class="dashboard-text">patient_dashboard_schedule_title</span>
+              </h2>
+            </div>
+            <a href="{{ url_for('appointment', lang=lang) }}"
+               class="btn btn-outline-primary btn-sm rounded-pill">
+              <span class="dashboard-text">book_one</span>
+            </a>
+          </div>
+
+          {% if appointments %}
+            <div class="dash-timeline dash-timeline--patient">
+              {% for a in appointments %}
+                <div class="dash-timeline-item scroll-reveal">
+                  <div class="dash-timeline-dot dash-timeline-dot--patient"></div>
+                  <div class="dash-timeline-content">
+                    <div class="d-flex justify-content-between align-items-start mb-1">
+                      <div>
+                        <div class="fw-semibold small">
+                          {{ a["appointment_date"] }} &middot; {{ a["appointment_time"] }}
+                        </div>
+                        <div class="tiny text-muted">
+                          {{ a["patient_name"] or current_user.name }}
+                        </div>
+                      </div>
+                      <span class="dash-pill
+                               {% if a['status'] == 'completed' %}dash-pill--inperson{% else %}dash-pill--online{% endif %}">
+                        {% if a["status"] == "completed" %}
+                          <span class="dashboard-text">status_completed</span>
+                        {% elif a["status"] == "scheduled" %}
+                          <span class="dashboard-text">status_scheduled</span>
+                        {% else %}
+                          {{ a["status"]|capitalize }}
+                        {% endif %}
+                      </span>
+                    </div>
+
+                    {% if a["notes"] %}
+                      <p class="small mb-0 text-muted">
+                        {{ a["notes"]|truncate(140, True, "…") }}
+                      </p>
+                    {% else %}
+                      <p class="small mb-0 text-muted">
+                        <span class="dashboard-text">no_notes</span>
+                      </p>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="text-center py-4">
+              <p class="mb-2 text-muted">
+                <span class="dashboard-text">no_appointments</span>
+              </p>
+              <a href="{{ url_for('appointment', lang=lang) }}"
+                 class="btn btn-primary rounded-pill px-4">
+                <span class="dashboard-text">book_one</span>
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- RIGHT: Session notes -->
+      <div class="col-lg-5">
+        <div class="dash-card p-3 p-md-4 h-100 scroll-reveal">
+          <p class="text-uppercase small letter-spacing-wide text-muted mb-1">
+            <span class="dashboard-text">session_notes</span>
+          </p>
+          <h2 class="h5 mb-3">
+            <span class="dashboard-text">patient_dashboard_notes_section_title</span>
+          </h2>
+
+          {# detect if there is at least one appointment with notes #}
+          {% set notes_state = namespace(has=false) %}
+          {% for a in appointments %}
+            {% if a["notes"] %}
+              {% set notes_state.has = true %}
+            {% endif %}
+          {% endfor %}
+
+          {% if notes_state.has %}
+            <div class="d-flex flex-column gap-3">
+              {% for a in appointments %}
+                {% if a["notes"] %}
+                  <div class="border rounded-3 p-3 bg-light-subtle scroll-reveal">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <div class="small fw-semibold">
+                        {{ a["appointment_date"] }} &middot; {{ a["appointment_time"] }}
+                      </div>
+                      <span class="badge rounded-pill bg-success-subtle text-success-emphasis">
+                        {% if a["status"] == "completed" %}
+                          <span class="dashboard-text">status_completed</span>
+                        {% elif a["status"] == "scheduled" %}
+                          <span class="dashboard-text">status_scheduled</span>
+                        {% else %}
+                          {{ a["status"]|capitalize }}
+                        {% endif %}
+                      </span>
+                    </div>
+                    <p class="mb-0 small">
+                      {{ a["notes"] }}
+                    </p>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% else %}
+            <p class="text-muted small mb-3">
+              <span class="dashboard-text">no_notes</span>
+            </p>
+            <p class="small text-muted mb-0">
+              <span class="dashboard-text">patient_dashboard_notes_hint</span>
+            </p>
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 {% endblock %}
