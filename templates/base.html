@@ -134,12 +134,12 @@
                     <!-- Theme toggle -->
                     <li class="nav-item ms-2">
                         <button
-                            id="themeToggle"
-                            class="btn btn-sm theme-toggle"
                             type="button"
-                            aria-label="Toggle theme"
+                            class="theme-toggle-btn ms-2"
+                            id="themeToggle"
+                            aria-label="Toggle dark mode"
                         >
-                            <i class="fas fa-moon" aria-hidden="true"></i>
+                            <i class="bi bi-moon-stars" id="themeToggleIcon"></i>
                         </button>
                     </li>
                 </ul>
@@ -247,6 +247,48 @@
             revealElements.forEach(el => observer.observe(el));
         });
     </script>
+    <script>
+    (function () {
+        const root = document.documentElement;
+        const toggleBtn = document.getElementById("themeToggle");
+        const icon = document.getElementById("themeToggleIcon");
+
+        if (!toggleBtn || !icon) return;
+
+        // 1. Read saved theme from localStorage
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark" || savedTheme === "light") {
+        root.setAttribute("data-theme", savedTheme);
+        } else {
+        // Optionally respect system preference
+        const prefersDark = window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches;
+        root.setAttribute("data-theme", prefersDark ? "dark" : "light");
+        }
+
+        function syncIcon() {
+        const current = root.getAttribute("data-theme");
+        if (current === "dark") {
+            icon.classList.remove("bi-moon-stars");
+            icon.classList.add("bi-sun-fill");
+        } else {
+            icon.classList.remove("bi-sun-fill");
+            icon.classList.add("bi-moon-stars");
+        }
+        }
+
+        syncIcon();
+
+        toggleBtn.addEventListener("click", function () {
+        const current = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+        const next = current === "dark" ? "light" : "dark";
+        root.setAttribute("data-theme", next);
+        localStorage.setItem("theme", next);
+        syncIcon();
+        });
+    })();
+    </script>
+
 
 </body>
 </html>

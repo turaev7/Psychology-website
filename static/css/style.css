@@ -1463,3 +1463,475 @@ body {
 .scroll-reveal:nth-child(2) { transition-delay: 0.15s; }
 .scroll-reveal:nth-child(3) { transition-delay: 0.25s; }
 .scroll-reveal:nth-child(4) { transition-delay: 0.40s; }
+
+/* ============================= */
+/*  DARK / LIGHT THEME SUPPORT   */
+/* ============================= */
+
+/* Light is the default (you already have most vars in :root) */
+/* We only override for [data-theme="dark"] */
+
+:root {
+  /* make sure these exist somewhere in your file; if they already do, you can skip redefining them */
+  --color-bg: #f5f1ea;
+  --color-surface: #ffffff;
+  --color-surface-soft: #f9f5ef;
+  --color-text-main: #1e2930;
+  --color-text-muted: #6b7280;
+  --color-deep: #223432;
+  --color-accent: #c49b6c;
+}
+
+/* Dark theme overrides */
+:root[data-theme="dark"] {
+  --color-bg: #050816;
+  --color-surface: #0b1020;
+  --color-surface-soft: #101426;
+  --color-text-main: #e5e7eb;
+  --color-text-muted: #9ca3af;
+  --color-deep: #7dd3fc;
+  --color-accent: #facc6b;
+
+  /* optional: tweak shadows and borders for dark mode */
+  --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.65);
+}
+
+/* Make body use the variables */
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+}
+
+/* Base card-like surfaces (for both themes) */
+.dash-card,
+.glass-card,
+.appointment-card,
+.auth-card,
+.media-card,
+.media-admin-item {
+  background-color: var(--color-surface-soft);
+  color: var(--color-text-main);
+}
+
+/* Dark theme: overall */
+:root[data-theme="dark"] body {
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+}
+
+/* Dark theme: navbar */
+:root[data-theme="dark"] .navbar {
+  background-color: rgba(5, 8, 22, 0.96);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.5);
+}
+
+/* Navbar text in dark mode */
+:root[data-theme="dark"] .navbar .navbar-brand,
+:root[data-theme="dark"] .navbar .navbar-brand span,
+:root[data-theme="dark"] .navbar .nav-link,
+:root[data-theme="dark"] .navbar .nav-link span,
+:root[data-theme="dark"] .navbar .dropdown-toggle,
+:root[data-theme="dark"] .navbar .btn-link,
+:root[data-theme="dark"] .navbar .language-toggle,
+:root[data-theme="dark"] .navbar .language-toggle span {
+  color: #e5e7eb !important;
+}
+
+/* Active/hovered nav links in dark mode */
+:root[data-theme="dark"] .navbar .nav-link.active,
+:root[data-theme="dark"] .navbar .nav-link:hover {
+  color: #facc6b !important;
+}
+
+/* Dark theme: dropdowns (if any) */
+:root[data-theme="dark"] .dropdown-menu {
+  background-color: #050816;
+  border-color: rgba(148, 163, 184, 0.5);
+  color: #e5e7eb;
+}
+
+/* Text colors in dark mode */
+:root[data-theme="dark"] .text-muted {
+  color: var(--color-text-muted) !important;
+}
+
+/* Dark theme: cards (includes admin media, dashboards, etc.) */
+:root[data-theme="dark"] .dash-card,
+:root[data-theme="dark"] .glass-card,
+:root[data-theme="dark"] .media-admin-item,
+:root[data-theme="dark"] .media-card,
+:root[data-theme="dark"] .appointment-card,
+:root[data-theme="dark"] .auth-card {
+  background-color: var(--color-surface);
+  border-color: rgba(148, 163, 184, 0.5);
+  box-shadow: var(--shadow-soft, 0 18px 45px rgba(0, 0, 0, 0.6));
+}
+
+/* Theme toggle button */
+.theme-toggle-btn {
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: rgba(255, 255, 255, 0.8);
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.theme-toggle-btn i {
+  font-size: 1.1rem;
+  color: #111827;
+}
+
+.theme-toggle-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.25);
+}
+
+:root[data-theme="dark"] .theme-toggle-btn {
+  background: rgba(15, 23, 42, 0.95);
+  border-color: rgba(148, 163, 184, 0.8);
+}
+
+:root[data-theme="dark"] .theme-toggle-btn i {
+  color: #e5e7eb;
+}
+
+/* ============================= */
+/*  DARK MODE — BRIGHTNESS FIX   */
+/* ============================= */
+
+/* Darken "surface-soft" areas that still look too bright */
+:root[data-theme="dark"] .dash-card,
+:root[data-theme="dark"] .glass-card,
+:root[data-theme="dark"] .media-card,
+:root[data-theme="dark"] .appointment-card,
+:root[data-theme="dark"] .auth-card,
+:root[data-theme="dark"] .page-section,
+:root[data-theme="dark"] .content-section,
+:root[data-theme="dark"] .form-control,
+:root[data-theme="dark"] .input-group-text,
+:root[data-theme="dark"] .media-admin-item {
+    background-color: #0c1222 !important; /* darker but clean */
+    border-color: rgba(148, 163, 184, 0.35) !important;
+    color: var(--color-text-main) !important;
+}
+
+/* Darken hero overlay so text stands out */
+:root[data-theme="dark"] .page-hero-overlay,
+:root[data-theme="dark"] .dashboard-hero-overlay {
+    background: linear-gradient(
+        to bottom,
+        rgba(5, 8, 22, 0.75),
+        rgba(5, 8, 22, 0.95)
+    ) !important;
+}
+
+/* Fix light backgrounds in forms */
+:root[data-theme="dark"] .form-control {
+    background-color: #0b1120 !important;
+    color: var(--color-text-main) !important;
+}
+
+:root[data-theme="dark"] .form-select {
+    background-color: #0b1120 !important;
+    color: var(--color-text-main) !important;
+    border-color: rgba(148, 163, 184, 0.4) !important;
+}
+
+:root[data-theme="dark"] .form-control::placeholder,
+:root[data-theme="dark"] .form-select option {
+    color: #9ca3af !important;
+}
+
+/* Card hover in dark mode */
+:root[data-theme="dark"] .media-card:hover,
+:root[data-theme="dark"] .dash-card:hover,
+:root[data-theme="dark"] .glass-card:hover {
+    background-color: #10172b !important;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.65);
+}
+
+/* Make section backgrounds darker */
+:root[data-theme="dark"] section,
+:root[data-theme="dark"] .section-bg,
+:root[data-theme="dark"] .py-5,
+:root[data-theme="dark"] .py-4,
+:root[data-theme="dark"] .content-area {
+    background-color: #050816 !important;
+}
+
+/* Tables in dark mode */
+:root[data-theme="dark"] table,
+:root[data-theme="dark"] .table {
+    background-color: #0b1120 !important;
+    color: var(--color-text-main) !important;
+}
+
+:root[data-theme="dark"] .table thead {
+    background-color: #11172b !important;
+    color: #e5e7eb !important;
+}
+
+/* Modals */
+:root[data-theme="dark"] .modal-content {
+    background-color: #0b1120 !important;
+    color: var(--color-text-main) !important;
+    border: 1px solid rgba(148, 163, 184, 0.3);
+}
+/* =========================================
+   DARK MODE – TARGETED TUNING
+   ========================================= */
+
+/* 1) HOME PAGE
+   - Make hero background darker
+   - Make about/approach cards match darker style
+*/
+
+/* Darken the big hero with Dr. Guli on home */
+:root[data-theme="dark"] .hero-fullscreen .hero-image-layer {
+  filter: brightness(0.35);
+}
+
+:root[data-theme="dark"] .hero-fullscreen .hero-color-overlay {
+  background: linear-gradient(
+    to right,
+    rgba(5, 8, 22, 0.96) 0%,
+    rgba(5, 8, 22, 0.94) 40%,
+    rgba(5, 8, 22, 0.72) 70%,
+    transparent 100%
+  );
+}
+
+/* About / intro & the 4 approach/experience cards */
+:root[data-theme="dark"] .about-card,
+:root[data-theme="dark"] .about-highlight-card,
+:root[data-theme="dark"] .approach-card,
+:root[data-theme="dark"] .focus-card {
+  background-color: #0c1222 !important;
+  border-color: rgba(148, 163, 184, 0.55) !important;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.65);
+  color: var(--color-text-main) !important;
+}
+
+/* Pills (Approach / Experience / Session / For whom tags) */
+:root[data-theme="dark"] .about-pill {
+  background-color: rgba(148, 163, 184, 0.16) !important;
+  border-color: rgba(148, 163, 184, 0.5) !important;
+  color: var(--color-text-main) !important;
+}
+
+/* 3) APPOINTMENTS – BOOKING FORM
+   - Darken booking card
+   - Make labels & placeholders readable
+*/
+
+:root[data-theme="dark"] .booking-card {
+  background-color: #0b1120 !important;
+  border-color: rgba(148, 163, 184, 0.5) !important;
+  color: var(--color-text-main) !important;
+}
+
+:root[data-theme="dark"] .booking-info-card {
+  background: radial-gradient(circle at top left, rgba(30, 64, 175, 0.35) 0, transparent 65%),
+              radial-gradient(circle at bottom right, rgba(8, 47, 73, 0.5) 0, transparent 60%),
+              #020617 !important;
+  border-color: rgba(148, 163, 184, 0.55) !important;
+  color: var(--color-text-main) !important;
+}
+
+:root[data-theme="dark"] .booking-card .form-label {
+  color: var(--color-text-main) !important;
+}
+
+:root[data-theme="dark"] .booking-card .form-control,
+:root[data-theme="dark"] .booking-card .form-select {
+  background-color: #020617 !important;
+  border-color: rgba(148, 163, 184, 0.5) !important;
+  color: var(--color-text-main) !important;
+}
+
+:root[data-theme="dark"] .booking-card .form-control::placeholder {
+  color: #9ca3af !important;
+}
+
+/* 4 & 6) PATIENT / DOCTOR LOGIN HERO
+   - Darken big background image overlay
+*/
+
+:root[data-theme="dark"] .auth-hero {
+  background-color: #020617;
+}
+
+:root[data-theme="dark"] .auth-hero-overlay {
+  background: linear-gradient(
+    to right,
+    rgba(5, 8, 22, 0.96),
+    rgba(5, 8, 22, 0.9),
+    rgba(5, 8, 22, 0.7),
+    transparent
+  ) !important;
+}
+
+/* 5) PATIENT DASHBOARD – SESSION NOTES
+   - Box is dark but notes were too faint -> increase contrast
+*/
+
+:root[data-theme="dark"] .dashboard-hero--patient + section .col-lg-5 .dash-card {
+  background-color: #0b1120 !important;
+  border-color: rgba(148, 163, 184, 0.55) !important;
+  color: #e5e7eb !important;
+}
+
+:root[data-theme="dark"] .dashboard-hero--patient + section .col-lg-5 .dash-card .small,
+:root[data-theme="dark"] .dashboard-hero--patient + section .col-lg-5 .dash-card p {
+  color: #e5e7eb !important;
+}
+
+/* 7) DOCTOR DASHBOARD
+   - Darken stats cards and main box with tabs
+*/
+
+/* Stat cards at the top (All appointments / Registered patients) */
+:root[data-theme="dark"] .dash-stat-card {
+  background-color: #020617 !important;
+  border-color: rgba(148, 163, 184, 0.55) !important;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.7);
+}
+
+:root[data-theme="dark"] .dash-stat-label {
+  color: var(--color-text-muted) !important;
+}
+
+:root[data-theme="dark"] .dash-stat-value {
+  color: #e5e7eb !important;
+}
+
+/* Main tabbed card (Appointments / Registered patients) */
+:root[data-theme="dark"] .dashboard-hero + section .dash-card {
+  background-color: #0b1120 !important;
+  border-color: rgba(148, 163, 184, 0.55) !important;
+  color: var(--color-text-main) !important;
+}
+
+/* Tables inside doctor dashboard in dark mode */
+:root[data-theme="dark"] .doctor-table {
+  background-color: transparent !important;
+  color: var(--color-text-main) !important;
+}
+
+:root[data-theme="dark"] .doctor-table thead {
+  background-color: #020617 !important;
+  color: #e5e7eb !important;
+}
+
+:root[data-theme="dark"] .doctor-table tbody tr {
+  border-color: rgba(75, 85, 99, 0.7) !important;
+}
+/* APPOINTMENTS – labels & hints visible in dark mode */
+:root[data-theme="dark"] .booking-card .form-label,
+:root[data-theme="dark"] .booking-card .form-text {
+  color: var(--color-text-main) !important;
+}
+
+/* Make text inside the input readable */
+:root[data-theme="dark"] .booking-card .form-control,
+:root[data-theme="dark"] .booking-card .form-select {
+  color: var(--color-text-main) !important;
+  background-color: #020617 !important;
+  border-color: rgba(148, 163, 184, 0.5) !important;
+}
+
+/* Placeholder text inside inputs (e.g. comments) */
+:root[data-theme="dark"] .booking-card .form-control::placeholder {
+  color: #9ca3af !important;
+}
+/* LANGUAGE DROPDOWN – dark mode visibility */
+:root[data-theme="dark"] .navbar .dropdown-menu {
+  background-color: #020617 !important;
+  border-color: rgba(148, 163, 184, 0.6) !important;
+}
+
+:root[data-theme="dark"] .navbar .dropdown-menu .dropdown-item {
+  color: #e5e7eb !important;
+}
+
+:root[data-theme="dark"] .navbar .dropdown-menu .dropdown-item:hover,
+:root[data-theme="dark"] .navbar .dropdown-menu .dropdown-item:focus {
+  background-color: #111827 !important;
+  color: #facc6b !important;
+}
+/* PATIENT DASHBOARD – session note boxes in dark mode */
+:root[data-theme="dark"] .dashboard-hero--patient + section .col-lg-5 .dash-card .bg-light-subtle {
+  background-color: #0b1120 !important;
+  border-color: rgba(148, 163, 184, 0.6) !important;
+  color: #e5e7eb !important;
+}
+
+:root[data-theme="dark"] .dashboard-hero--patient + section .col-lg-5 .dash-card .bg-light-subtle p,
+:root[data-theme="dark"] .dashboard-hero--patient + section .col-lg-5 .dash-card .bg-light-subtle .small,
+:root[data-theme="dark"] .dashboard-hero--patient + section .col-lg-5 .dash-card .bg-light-subtle .tiny {
+  color: #e5e7eb !important;
+}
+/* MEDIA PAGE – hero panel in dark mode */
+:root[data-theme="dark"] .page-hero--media {
+  background-color: transparent !important;
+}
+
+/* Make sure the text block itself has no solid box */
+:root[data-theme="dark"] .page-hero--media .page-hero-content {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Keep only a soft overlay on top of the image for readability */
+:root[data-theme="dark"] .page-hero--media .page-hero-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(5, 8, 22, 0.8),
+    rgba(5, 8, 22, 0.9)
+  ) !important;
+}
+/* MEDIA FILTERS – dark mode */
+:root[data-theme="dark"] .media-filters {
+  background-color: #020617 !important;
+  border-color: rgba(148, 163, 184, 0.6) !important;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Default chip text color in dark mode */
+:root[data-theme="dark"] .media-chip {
+  color: #e5e7eb !important;
+}
+
+/* Active chip (All / Podcasts / etc.) in dark mode */
+:root[data-theme="dark"] .media-chip.active {
+  background-color: #38bdf8 !important;   /* nice cyan */
+  color: #020617 !important;
+  box-shadow: 0 12px 30px rgba(56, 189, 248, 0.6) !important;
+}
+
+/* Search input next to the chips */
+:root[data-theme="dark"] .media-search-input {
+  background-color: #020617 !important;
+  border-color: rgba(148, 163, 184, 0.6) !important;
+}
+
+:root[data-theme="dark"] .media-search-input .form-control {
+  background-color: transparent !important;
+  color: #e5e7eb !important;
+}
+
+:root[data-theme="dark"] .media-search-input .form-control::placeholder {
+  color: #9ca3af !important;
+}
+
+:root[data-theme="dark"] .media-search-input .input-group-text {
+  background: transparent !important;
+  color: #9ca3af !important;
+}

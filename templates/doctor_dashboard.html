@@ -247,51 +247,6 @@
                           <span class="dashboard-text">add_notes</span>
                         </button>
                       {% endif %}
-
-                      <!-- Notes Modal -->
-                      <div
-                        class="modal fade"
-                        id="notesModal{{ appointment['id'] }}"
-                        tabindex="-1"
-                        aria-hidden="true"
-                      >
-                        <div class="modal-dialog modal-dialog-centered">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title">
-                                <i class="fas fa-notes-medical me-2" aria-hidden="true"></i>
-                                <span class="dashboard-text">session_notes_for</span>
-                                {{ appointment['patient_name'] }}
-                              </h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <form method="POST"
-                                  action="{{ url_for('add_note',
-                                                     appointment_id=appointment['id']) }}">
-                              <div class="modal-body">
-                                <textarea
-                                  class="form-control"
-                                  name="notes"
-                                  rows="5"
-                                  required
-                                >{{ appointment['notes'] or '' }}</textarea>
-                              </div>
-                              <div class="modal-footer">
-                                <button
-                                  type="button"
-                                  class="btn btn-secondary"
-                                  data-bs-dismiss="modal"
-                                >
-                                  <span class="dashboard-text">close</span>
-                                </button>
-                                <button type="submit" class="btn btn-primary">
-                                  <span class="dashboard-text">save</span>
-                                </button>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
                     </td>
                     <td>
                       {% if appointment['status'] == 'scheduled' %}
@@ -370,5 +325,57 @@
     </div>
   </div>
 </section>
+{# All notes modals live here, outside the table/card #}
+{% for appointment in appointments %}
+<div
+  class="modal fade"
+  id="notesModal{{ appointment['id'] }}"
+  tabindex="-1"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="fas fa-notes-medical me-2" aria-hidden="true"></i>
+          <span class="dashboard-text">session_notes_for</span>
+          {{ appointment['patient_name'] }}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close">
+        </button>
+      </div>
+
+      <form method="POST"
+            action="{{ url_for('add_note',
+                               appointment_id=appointment['id']) }}">
+        <div class="modal-body">
+          <textarea
+            class="form-control"
+            name="notes"
+            rows="5"
+            required
+          >{{ appointment['notes'] or '' }}</textarea>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            <span class="dashboard-text">close</span>
+          </button>
+          <button type="submit" class="btn btn-primary">
+            <span class="dashboard-text">save</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endfor %}
 
 {% endblock %}
