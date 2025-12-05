@@ -29,3 +29,7 @@ env.bak/
 venv.bak/
 instance/
 .webassets-cache
+therapy.db
+*.pyc
+*.sqlite
+*.sqlite3
