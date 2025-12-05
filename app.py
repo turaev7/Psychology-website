@@ -191,7 +191,7 @@ def load_user(user_id):
 
 def get_language():
     """Get & remember current language in the session."""
-    lang = request.args.get("lang", session.get("language", "en"))
+    lang = request.args.get("lang", session.get("language", "uz"))
     session["language"] = lang
     return lang
 
