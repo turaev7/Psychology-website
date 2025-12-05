@@ -147,6 +147,10 @@ def init_db():
                 )
 
         db.commit()
+# Make sure the DB is initialized on the server (Render / gunicorn)
+@app.before_first_request
+def initialize_database():
+    init_db()
 
 
 # ---------- USER MODEL & LOGIN ----------
@@ -593,5 +597,4 @@ def update_appointment_status(appointment_id):
 
 
 if __name__ == "__main__":
-    init_db()
     app.run(host="0.0.0.0", port=5000, debug=True)
