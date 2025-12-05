@@ -148,7 +148,7 @@ def init_db():
 
         db.commit()
 # Make sure the DB is initialized on the server (Render / gunicorn)
-@app.before_first_request
+@app.before_request
 def initialize_database():
     init_db()
 
