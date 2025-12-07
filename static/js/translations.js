@@ -14,7 +14,7 @@ const translations = {
         doctor_login: "Doctor Login",
         rights: "All rights reserved",
 
-        welcome: "Welcome to Healing & Growth",
+        welcome: "Welcome to",
         tagline: "Your journey to mental wellness starts here with Dr. Guli Bekmurodovna",
         book_appointment: "Book Appointment",
         learn_more: "Learn More",
@@ -398,7 +398,7 @@ const translations = {
         doctor_login: "Shifokor kirish",
         rights: "Barcha huquqlar himoyalangan",
 
-        welcome: "Shifo va O'sishga Xush Kelibsiz",
+        welcome: "Xush Kelibsiz",
         tagline: "Ruhiy salomatlikka yo'lingiz Dr. Guli Bekmurodovna bilan boshlanadi",
         book_appointment: "Qabulga yozilish",
         learn_more: "Batafsil",
@@ -780,7 +780,7 @@ const translations = {
         doctor_login: "Вход врача",
         rights: "Все права защищены",
 
-        welcome: "Добро пожаловать в Исцеление и Рост",
+        welcome: "Добро пожаловать в ",
         tagline: "Ваш путь к психическому здоровью начинается здесь с доктором Гули Бекмуродовной",
         book_appointment: "Записаться",
         learn_more: "Узнать больше",
@@ -1148,6 +1148,7 @@ const translations = {
             name: "Имя"
         }
     }
+    
 };
 // ============================
 // SIMPLE FRONT-END I18N ENGINE

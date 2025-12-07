@@ -181,7 +181,7 @@
                     <h5><span class="footer-text">contact</span></h5>
                     <p>
                         <i class="fas fa-phone me-2" aria-hidden="true"></i>
-                        <a href="tel:+393314086000">+39 331 408 6000</a>
+                        <a href="tel:+393314086000">+998 97 330 56 81</a>
                     </p>
                     <p>
                         <i class="fas fa-envelope me-2" aria-hidden="true"></i>
@@ -289,6 +289,29 @@
     })();
     </script>
 
+    <!-- MOBILE BOTTOM NAV (visible only on phones) -->
+    <nav class="mobile-bottom-nav d-md-none">
+        <a href="{{ url_for('index') }}" class="mobile-nav-item">
+            <i class="bi bi-house"></i>
+            <span data-key="nav_home">Home</span>
+        </a>
+        <a href="{{ url_for('about') }}" class="mobile-nav-item">
+            <i class="bi bi-briefcase"></i>
+            <span data-key="nav_doctor">About us</span>
+        </a>
+
+        <a href="{{ url_for('media') }}" class="mobile-nav-item">
+            <i class="bi bi-collection-play"></i>
+            <span data-key="nav_media">Media</span>
+        </a>
+
+        <a href="{{ url_for('patient_login') }}" class="mobile-nav-item">
+            <i class="bi bi-person"></i>
+            <span data-key="nav_patient">Patient</span>
+        </a>
+
+        
+    </nav>
 
 </body>
 </html>

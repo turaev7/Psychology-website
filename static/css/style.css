@@ -124,6 +124,15 @@ body {
   background-color: #ffffff;
   border-color: #ffffff;
 }
+/* Fullscreen hero base style */
+.hero-fullscreen {
+  min-height: 100vh;            /* full viewport height on all devices */
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-top: 5rem;            /* space for navbar */
+  padding-bottom: 4rem;
+}
 
 /* Morphing photo frame on right */
 
@@ -1934,4 +1943,360 @@ body {
 :root[data-theme="dark"] .media-search-input .input-group-text {
   background: transparent !important;
   color: #9ca3af !important;
+}
+
+/* ==================================================
+   MOBILE OPTIMIZATION (phones & small tablets)
+   ================================================== */
+
+@media (max-width: 768px) {
+  /* Tweak hero for phones */
+  .hero-fullscreen {
+    padding-top: 18.5rem;
+    padding-bottom: 1.5rem;
+  }
+  .hero-fullscreen h1,
+  .hero-fullscreen .hero-main-title,
+  .hero-fullscreen .h1-lg,
+  .hero-fullscreen p,
+  .hero-fullscreen .lead,
+  .hero-fullscreen .hero-subtitle {
+      color: #ffffff !important;
+  }
+    /* BRIGHTER HERO IMAGE ON MOBILE */
+  .hero-fullscreen .hero-image-layer,
+  .page-hero--home .hero-image-layer {
+      filter: brightness(1);    /* Increase brightness */
+  }
+  @media (max-width: 768px) {
+  .hero-fullscreen .page-hero-content,
+  .hero-fullscreen .hero-content {
+      background: linear-gradient(
+          to bottom,
+          rgba(0,0,0,0.35),
+          rgba(0,0,0,0.15)
+      );
+      padding: 1rem;
+      border-radius: 12px;
+  }
+}
+
+
+  /* Reduce the dark overlay to make image more visible */
+  .hero-fullscreen .hero-color-overlay,
+  .page-hero--home .page-hero-overlay {
+      background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.35),
+          rgba(0,0,0,0.35)
+      ) !important;
+  }
+
+  .hero-fullscreen .hero-main-title,
+  .hero-fullscreen .h1-lg {
+    font-size: 1.9rem;
+    line-height: 1.2;
+  }
+
+  .hero-fullscreen .lead {
+    font-size: 1rem;
+    opacity: 0.95;
+  }
+
+  /* Only hide the side hero image on small screens */
+  .hero-photo-frame,
+  .hero-side-image,
+  .hero-portrait {
+    display: none !important;
+  }
+}
+
+
+  /* ---------------- ABOUT PAGE ---------------- */
+
+  .page-hero--about .h1-lg,
+  .page-hero--about h1 {
+    font-size: 1.65rem;
+  }
+
+  .page-hero--about .lead {
+    font-size: 0.98rem;
+  }
+
+  /* Reduce side padding for content blocks */
+  .about-section,
+  .content-section {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  /* ---------------- APPOINTMENTS ---------------- */
+
+  /* Stack booking form + side info */
+  .booking-layout {
+    display: block;
+  }
+
+  .booking-card {
+    margin-bottom: 1.5rem;
+  }
+
+  .booking-info-card {
+    margin-top: 0;
+  }
+
+  .booking-card,
+  .booking-info-card {
+    border-radius: 1.25rem;
+  }
+
+  .booking-card .form-label {
+    font-size: 0.8rem;
+  }
+
+  /* Inputs a bit taller for fingers */
+  .booking-card .form-control,
+  .booking-card .form-select {
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+  }
+
+  /* ---------------- LOGIN PAGES ---------------- */
+
+  .auth-hero {
+    min-height: auto;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .auth-wrapper {
+    flex-direction: column;
+  }
+
+  .auth-card {
+    width: 100%;
+    max-width: 380px;
+    margin-inline: auto;
+    margin-top: 1rem;
+  }
+
+  .auth-card h1,
+  .auth-card .h3 {
+    font-size: 1.4rem;
+  }
+
+  /* ---------------- PATIENT DASHBOARD ---------------- */
+
+  .dashboard-hero--patient {
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+  }
+
+  .dashboard-layout {
+    row-gap: 2rem;
+  }
+
+  .dash-stat-card {
+    margin-bottom: 0.75rem;
+  }
+
+  /* Timeline more compact on mobile */
+  .dash-timeline-item {
+    padding-left: 1.75rem;
+  }
+
+  .dash-timeline-content .small {
+    font-size: 0.8rem;
+  }
+
+  /* Cards stack vertically */
+  .dash-card {
+    margin-bottom: 1.5rem;
+  }
+
+  /* Session notes card: full width, comfortable spacing */
+  .dashboard-hero--patient + section .col-lg-5 .dash-card {
+    margin-top: 0;
+  }
+
+  /* ---------------- DOCTOR DASHBOARD ---------------- */
+
+  .dashboard-hero {
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+  }
+
+  .dashboard-hero .h3,
+  .dashboard-hero h1 {
+    font-size: 1.5rem;
+  }
+
+  /* Stats: 2 per row on small, then full width */
+  .dash-stat-card {
+    padding: 0.9rem 1rem;
+  }
+
+  /* Tabs & table area */
+  .doctor-table {
+    font-size: 0.85rem;
+  }
+
+  .doctor-table th,
+  .doctor-table td {
+    padding: 0.4rem 0.35rem;
+  }
+
+  /* Make table horizontally scrollable if too wide */
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  /* ---------------- MEDIA PAGE ---------------- */
+
+  .page-hero--media {
+    padding-top: 3rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .page-hero--media .h1-lg {
+    font-size: 1.6rem;
+  }
+
+  .page-hero--media .lead {
+    font-size: 0.96rem;
+  }
+
+  .media-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .media-filters {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .media-chip {
+    margin-bottom: 0.25rem;
+  }
+
+  .media-search-wrapper {
+    width: 100%;
+    max-width: none !important;
+  }
+
+  .media-search-input .form-control {
+    font-size: 0.9rem;
+  }
+
+  /* Cards: more breathing room */
+  .media-card {
+    padding: 0.85rem;
+  }
+
+  .media-card h3,
+  .media-card .h6 {
+    font-size: 0.95rem;
+  }
+
+  .media-card p {
+    font-size: 0.83rem;
+  }
+
+  /* ---------------- GENERIC SMALL UI ---------------- */
+
+  .btn {
+    font-size: 0.9rem;
+    padding-inline: 1rem;
+  }
+
+  .tiny,
+  .text-uppercase.tiny {
+    font-size: 0.68rem;
+  }
+}
+
+/* Even smaller phones (very narrow screens) */
+@media (max-width: 576px) {
+  .hero-fullscreen {
+    padding-top: 3.25rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .hero-fullscreen h1,
+  .h1-lg {
+    font-size: 1.5rem;
+  }
+
+  .navbar-brand span {
+    font-size: 0.95rem;
+  }
+
+  .theme-toggle-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .auth-card {
+    padding: 1.5rem 1.25rem;
+  }
+}
+/* =========================================
+   MOBILE BOTTOM NAV
+========================================= */
+
+.mobile-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: var(--color-surface);
+  border-top: 1px solid rgba(200, 200, 200, 0.2);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 3000;
+}
+
+.mobile-nav-item {
+  flex: 1;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--color-text-main);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mobile-nav-item i {
+  font-size: 1.3rem;
+}
+
+.mobile-nav-item:hover {
+  color: var(--color-accent);
+}
+
+/* Dark mode */
+:root[data-theme="dark"] .mobile-bottom-nav {
+  background-color: var(--color-surface-soft);
+  border-top: 1px solid rgba(150, 150, 150, 0.3);
+}
+
+:root[data-theme="dark"] .mobile-nav-item {
+  color: var(--color-text-main);
+}
+
+:root[data-theme="dark"] .mobile-nav-item:hover {
+  color: var(--color-accent);
+}
+
+/* Make space at bottom so content doesn't hide behind nav */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 70px;
+  }
 }
