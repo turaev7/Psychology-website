@@ -1140,7 +1140,7 @@ const translations = {
         appointment_topic_self_esteem: "Самооценка",
         appointment_topic_other: "Другое / не уверен(а)",
 
-
+        
         table: {
             date: "Дата",
             time: "Время",
